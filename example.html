@@ -1,0 +1,336 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Apple-Style Slider</title>
+<link rel="stylesheet" type="text/css" href="slidernav.css" media="screen, projection" />
+<script type="text/javascript" src="jquery-1.4.2.js"></script>
+<script type="text/javascript" src="slidernav.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#slider').sliderNav();
+		$('#transformers').sliderNav({items:['autobots','decepticons'], debug: true, height: '300', arrows: false});
+	});
+</script>
+<style>
+	/* The following styles are used only for this page - the actual plugin styles are in slidernav.css */
+	* { margin: 0; padding: 0; }
+	body { padding: 40px; background: #eee; font-family: Verdana, Arial; font-size: 12px; line-height: 18px; }
+	a { text-decoration: none; }
+	h2, h3 { margin: 0 0 20px; text-shadow: 2px 2px #fff; }
+	h2 { font-size: 28px; }
+	h3 { font-size: 22px; }
+	pre { background: #fff; width: 460px; padding: 10px 20px; border-left: 5px solid #ccc; margin: 0 0 20px; }
+	p { width: 500px; font-size: 18px; line-height: 24px; margin: 0 0 30px; }
+</style>
+</head>
+<body>
+<h2>SliderNav</h2>
+<p><strong>SliderNav</strong> is a plugin that lets you add dynamic, sliding content using a vertical navigation bar (index).  It's made mainly for alphabetical listings but can be used with anything, though longer words look a little awkward (see <a href="#example-2">example 2</a>).</p>
+<h3>Basic Usage</h3>
+<pre>$('.slider').sliderNav();</pre>
+<p>For more detailed instructions and customization options, see the <a href="http://devgrow.com/slidernav">article on DevGrow</a> (or view the plugin source).</p>
+<h3>Example 1</h3>
+<div id="slider">
+	<div class="slider-content">
+		<ul>
+			<li id="a"><a name="a" class="title">A</a>
+				<ul>
+					<li><a href="/">Adam</a></li>
+					<li><a href="/">Alex</a></li>
+					<li><a href="/">Ali</a></li>
+					<li><a href="/">Apple</a></li>
+					<li><a href="/">Arthur</a></li>
+					<li><a href="/">Ashley</a></li>
+				</ul>
+			</li>
+			<li id="b"><a name="b" class="title">B</a>
+				<ul>
+					<li><a href="/">Barry</a></li>
+					<li><a href="/">Becky</a></li>
+					<li><a href="/">Biff</a></li>
+					<li><a href="/">Billy</a></li>
+					<li><a href="/">Bozarking</a></li>
+					<li><a href="/">Bryan</a></li>
+				</ul>
+			</li>
+			<li id="c"><a name="c" class="title">c</a>
+				<ul>
+					<li><a href="/">Calista</a></li>
+					<li><a href="/">Cathy</a></li>
+					<li><a href="/">Chris</a></li>
+					<li><a href="/">Cinderella</a></li>
+					<li><a href="/">Corky</a></li>
+					<li><a href="/">Cypher</a></li>
+				</ul>
+			</li>
+			<li id="d"><a name="d" class="title">d</a>
+				<ul>
+					<li><a href="/">damien</a></li>
+					<li><a href="/">danny</a></li>
+					<li><a href="/">denver</a></li>
+					<li><a href="/">devon</a></li>
+					<li><a href="/">doug</a></li>
+					<li><a href="/">dustin</a></li>
+				</ul>
+			</li>
+			<li id="e"><a name="e" class="title">E</a>
+				<ul>
+					<li><a href="/">Barry</a></li>
+					<li><a href="/">Becky</a></li>
+					<li><a href="/">Biff</a></li>
+					<li><a href="/">Billy</a></li>
+					<li><a href="/">Bozarking</a></li>
+					<li><a href="/">Bryan</a></li>
+				</ul>
+			</li>
+			<li id="f"><a name="f" class="title">f</a>
+				<ul>
+					<li><a href="/">Calista</a></li>
+					<li><a href="/">Cathy</a></li>
+					<li><a href="/">Chris</a></li>
+					<li><a href="/">Cinderella</a></li>
+					<li><a href="/">Corky</a></li>
+					<li><a href="/">Cypher</a></li>
+				</ul>
+			</li>
+			<li id="g"><a name="g" class="title">g</a>
+				<ul>
+					<li><a href="/">damien</a></li>
+					<li><a href="/">danny</a></li>
+					<li><a href="/">denver</a></li>
+					<li><a href="/">devon</a></li>
+					<li><a href="/">doug</a></li>
+					<li><a href="/">dustin</a></li>
+				</ul>
+			</li>
+			<li id="h"><a name="h" class="title">h</a>
+				<ul>
+					<li><a href="/">Barry</a></li>
+					<li><a href="/">Becky</a></li>
+					<li><a href="/">Biff</a></li>
+					<li><a href="/">Billy</a></li>
+					<li><a href="/">Bozarking</a></li>
+					<li><a href="/">Bryan</a></li>
+				</ul>
+			</li>
+			<li id="i"><a name="i" class="title">i</a>
+				<ul>
+					<li><a href="/">Calista</a></li>
+					<li><a href="/">Cathy</a></li>
+					<li><a href="/">Chris</a></li>
+					<li><a href="/">Cinderella</a></li>
+					<li><a href="/">Corky</a></li>
+					<li><a href="/">Cypher</a></li>
+				</ul>
+			</li>
+			<li id="j"><a name="j" class="title">j</a>
+				<ul>
+					<li><a href="/">damien</a></li>
+					<li><a href="/">danny</a></li>
+					<li><a href="/">denver</a></li>
+					<li><a href="/">devon</a></li>
+					<li><a href="/">doug</a></li>
+					<li><a href="/">dustin</a></li>
+				</ul>
+			</li>
+			<li id="k"><a name="k" class="title">k</a>
+				<ul>
+					<li><a href="/">Barry</a></li>
+					<li><a href="/">Becky</a></li>
+					<li><a href="/">Biff</a></li>
+					<li><a href="/">Billy</a></li>
+					<li><a href="/">Bozarking</a></li>
+					<li><a href="/">Bryan</a></li>
+				</ul>
+			</li>
+			<li id="l"><a name="l" class="title">l</a>
+				<ul>
+					<li><a href="/">Calista</a></li>
+					<li><a href="/">Cathy</a></li>
+					<li><a href="/">Chris</a></li>
+					<li><a href="/">Cinderella</a></li>
+					<li><a href="/">Corky</a></li>
+					<li><a href="/">Cypher</a></li>
+				</ul>
+			</li>
+			<li id="m"><a name="m" class="title">m</a>
+				<ul>
+					<li><a href="/">damien</a></li>
+					<li><a href="/">danny</a></li>
+					<li><a href="/">denver</a></li>
+					<li><a href="/">devon</a></li>
+					<li><a href="/">doug</a></li>
+					<li><a href="/">dustin</a></li>
+				</ul>
+			</li>
+			<li id="n"><a name="n" class="title">n</a>
+				<ul>
+					<li><a href="/">damien</a></li>
+					<li><a href="/">danny</a></li>
+					<li><a href="/">denver</a></li>
+					<li><a href="/">devon</a></li>
+					<li><a href="/">doug</a></li>
+					<li><a href="/">dustin</a></li>
+				</ul>
+			</li>
+			<li id="o"><a name="o" class="title">o</a>
+				<ul>
+					<li><a href="/">damien</a></li>
+					<li><a href="/">danny</a></li>
+					<li><a href="/">denver</a></li>
+					<li><a href="/">devon</a></li>
+					<li><a href="/">doug</a></li>
+					<li><a href="/">dustin</a></li>
+				</ul>
+			</li>
+			<li id="p"><a name="p" class="title">p</a>
+				<ul>
+					<li><a href="/">Barry</a></li>
+					<li><a href="/">Becky</a></li>
+					<li><a href="/">Biff</a></li>
+					<li><a href="/">Billy</a></li>
+					<li><a href="/">Bozarking</a></li>
+					<li><a href="/">Bryan</a></li>
+				</ul>
+			</li>
+			<li id="q"><a name="q" class="title">q</a>
+				<ul>
+					<li><a href="/">Calista</a></li>
+					<li><a href="/">Cathy</a></li>
+					<li><a href="/">Chris</a></li>
+					<li><a href="/">Cinderella</a></li>
+					<li><a href="/">Corky</a></li>
+					<li><a href="/">Cypher</a></li>
+				</ul>
+			</li>
+			<li id="r"><a name="r" class="title">r</a>
+				<ul>
+					<li><a href="/">damien</a></li>
+					<li><a href="/">danny</a></li>
+					<li><a href="/">denver</a></li>
+					<li><a href="/">devon</a></li>
+					<li><a href="/">doug</a></li>
+					<li><a href="/">dustin</a></li>
+				</ul>
+			</li>
+			<li id="s"><a name="s" class="title">s</a>
+				<ul>
+					<li><a href="/">Barry</a></li>
+					<li><a href="/">Becky</a></li>
+					<li><a href="/">Biff</a></li>
+					<li><a href="/">Billy</a></li>
+					<li><a href="/">Bozarking</a></li>
+					<li><a href="/">Bryan</a></li>
+				</ul>
+			</li>
+			<li id="t"><a name="t" class="title">t</a>
+				<ul>
+					<li><a href="/">Calista</a></li>
+					<li><a href="/">Cathy</a></li>
+					<li><a href="/">Chris</a></li>
+					<li><a href="/">Cinderella</a></li>
+					<li><a href="/">Corky</a></li>
+					<li><a href="/">Cypher</a></li>
+				</ul>
+			</li>
+			<li id="u"><a name="u" class="title">u</a>
+				<ul>
+					<li><a href="/">damien</a></li>
+					<li><a href="/">danny</a></li>
+					<li><a href="/">denver</a></li>
+					<li><a href="/">devon</a></li>
+					<li><a href="/">doug</a></li>
+					<li><a href="/">dustin</a></li>
+				</ul>
+			</li>
+			<li id="v"><a name="v" class="title">v</a>
+				<ul>
+					<li><a href="/">Barry</a></li>
+					<li><a href="/">Becky</a></li>
+					<li><a href="/">Biff</a></li>
+					<li><a href="/">Billy</a></li>
+					<li><a href="/">Bozarking</a></li>
+					<li><a href="/">Bryan</a></li>
+				</ul>
+			</li>
+			<li id="w"><a name="w" class="title">w</a>
+				<ul>
+					<li><a href="/">Calista</a></li>
+					<li><a href="/">Cathy</a></li>
+					<li><a href="/">Chris</a></li>
+					<li><a href="/">Cinderella</a></li>
+					<li><a href="/">Corky</a></li>
+					<li><a href="/">Cypher</a></li>
+				</ul>
+			</li>
+			<li id="x"><a name="x" class="title">x</a>
+				<ul>
+					<li><a href="/">damien</a></li>
+					<li><a href="/">danny</a></li>
+					<li><a href="/">denver</a></li>
+					<li><a href="/">devon</a></li>
+					<li><a href="/">doug</a></li>
+					<li><a href="/">dustin</a></li>
+				</ul>
+			</li>
+			<li id="y"><a name="y" class="title">y</a>
+				<ul>
+					<li><a href="/">damien</a></li>
+					<li><a href="/">danny</a></li>
+					<li><a href="/">denver</a></li>
+					<li><a href="/">devon</a></li>
+					<li><a href="/">doug</a></li>
+					<li><a href="/">dustin</a></li>
+				</ul>
+			</li>
+			<li id="z"><a name="z" class="title">z</a>
+				<ul>
+					<li><a href="/">damien</a></li>
+					<li><a href="/">danny</a></li>
+					<li><a href="/">denver</a></li>
+					<li><a href="/">devon</a></li>
+					<li><a href="/">doug</a></li>
+					<li><a href="/">dustin</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</div>
+<br /><br />
+<h3>Example 2</h3>
+<a name="example-2"></a>
+<div id="transformers">
+	<div class="slider-content">
+		<ul>
+			<li id="autobots"><a name="autobots" class="title">Autobots</a>
+				<ul>
+					<li><a href="/">Bumblebee</a></li>
+					<li><a href="/">Ironhide</a></li>
+					<li><a href="/">Jazz</a></li>
+					<li><a href="/">Optimus Prime</a></li>
+					<li><a href="/">Ratchet</a></li>
+					<li><a href="/">Ashley</a></li>
+				</ul>
+			</li>
+			<li id="decepticons"><a name="decepticons" class="title">Decepticons</a>
+				<ul>
+					<li><a href="/">Barricade</a></li>
+					<li><a href="/">Blackout</a></li>
+					<li><a href="/">Bonecrusher</a></li>
+					<li><a href="/">Brawl</a></li>
+					<li><a href="/">Frenzy</a></li>
+					<li><a href="/">Megatron</a></li>
+					<li><a href="/">Scorponok</a></li>
+					<li><a href="/">Starscream</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</div>
+<br /><br />
+<h3>Credit and License</h3>
+<p>This plugin was created by <a href="http://mdolon.com/">Monjurul Dolon</a>, author of <a href="http://devgrow.com/">DevGrow</a>, a blog for web developers and designers.  Inspiration for this effect came from a new technology blog called <a href="http://techi.com/">Techi</a> - be sure to support them as well!</p>
+<p>Realeased under the MIT, BSD, and GPL Licenses - do whatever you'd like with it, though a link back would be sincerely appreciated!</p>
+</body>
+</html>

@@ -1,0 +1,31 @@
+Plugin Name: SliderNav
+Author: Monjurul Dolon, http://mdolon.com/
+More Information: http://devgrow.com/slidernav
+
+SliderNav is a JQuery plugin that lets you add dynamic, sliding content 
+using a vertical navigation bar (index). It is made mainly for 
+alphabetical listings but can be used with anything, though longer words 
+can look a bit awkward. The plugin automatically adds the navigation and 
+sets the height for the object based on how tall the navigation is, in 
+order to make sure users have access to the entire list. I also used the 
+overflow: auto; property for the actual content so you can use your 
+mousewheel to scroll through the content as well.
+
+The first of the configurations is height - set this to a pixel value if 
+you wish to override the automatic detection based on the vertical 
+navigation (you may need to change the min-height in the CSS too). Also 
+by default, the plugin will generate an alphabetical navigation that 
+uses all 26 letters of the English alphabet, however you can also use 
+custom items using the following code:
+
+    $('#slider').sliderNav({items:['item1','item2','item3'], height:'200'});
+
+You can also set arrows to true (default) or false, which displays 
+arrows above and below the slider object to allow scrolling longer 
+sections. Click on an arrow will scroll the object by it’s height 
+– I used this method to keep code to the minimum, as anything 
+smoother/nicer-looking required a lot more code. The last customizable 
+option is debug, which can either be true or false. This adds a little 
+bit of text on the bottom of the slider that shows how many pixels the 
+current offset is (was useful during early development, probably not 
+anymore).
