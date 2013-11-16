@@ -2,7 +2,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <title>Apple-Style Slider</title>
+    <title>Apple-Style Slider - AlphabetNav</title>
     <link rel="stylesheet" type="text/css" href="alphabetNav.css" media="screen, projection"/>
     <script type="text/javascript" src="jquery-2.0.3.min.js"></script>
     <script type="text/javascript" src="alphabetNav.js"></script>
@@ -11,7 +11,8 @@
             $('#content').alphabetNav({
                 debug: true,
                 content: '#list-content',
-                growEffect: true
+                growEffect: true,
+                overlay: true
             });
         });
     </script>
@@ -64,13 +65,13 @@
     </style>
 </head>
 <body>
-<h2>AlphabetSoup</h2>
+<h2>AlphabetNav</h2>
 <p>
-    <strong>AlphabetSoup</strong> is a plugin that lets you add an alphabetical vertical navigation bar.
+    <strong>AlphabetNav</strong> is a plugin that lets you add an alphabetical vertical navigation bar.
 </p>
 
 <h3>Basic Usage</h3>
-<pre>$('.content').alphabetSoup();</pre>
+<pre>$('#content').alphabetNav();</pre>
 
 <h3>Example</h3>
 

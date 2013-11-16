@@ -11,7 +11,7 @@ $.fn.alphabetNav = function (options) {
             content: '.list-content',
             debug: false,
             height: null,
-            items: [
+            letters: [
                 "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
                 "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
             ],
@@ -26,12 +26,11 @@ $.fn.alphabetNav = function (options) {
         $(list).append('<a id="current-target-overlay"></a>');
         var $overlay = $('#current-target-overlay');
     }
-    console.log("list content selector: " + listContent);
     $(list).addClass('list');
     $(listContent, list).find('li:first').addClass('selected');
     $(list).append('<div class="list-nav"><ul></ul></div>');
-    for (var i in o.items) {
-        $('.list-nav ul', list).append("<li><a data-target='" + o.items[i] + "'>" + o.items[i] + "</a></li>");
+    for (var i in o.letters) {
+        $('.list-nav ul', list).append("<li><a data-target='" + o.letters[i] + "'>" + o.letters[i] + "</a></li>");
     }
     var height = $('.list-nav', list).height(),
         currSize = parseInt($('.list-nav a').css('font-size'), 10);
@@ -44,11 +43,10 @@ $.fn.alphabetNav = function (options) {
     }
     $('.list-nav a', list).on('mouseover', function (evt) {
         evt.preventDefault();
-        var target = $(this).data('target'),
+        var target  = $(this).data('target'),
             cOffset = $(listContent, list).offset().top,
             tOffset = $(listContent + ' #' + target, list).offset().top,
-            height = $('.list-nav', list).height();
-        console.log("target", target);
+            height  = $('.list-nav', list).height();
         if (o.height) {
             height = o.height;
         }
@@ -56,7 +54,7 @@ $.fn.alphabetNav = function (options) {
         $(listContent, list).find('li').removeClass('selected');
         $('#' + target).addClass('selected');
         if (o.overlay) {
-            $overlay.html(target).show();
+            $overlay.html(target);
         }
         if (o.growEffect) {
             var bigSize = (currSize * 2) + 'px';
@@ -78,26 +76,38 @@ $.fn.alphabetNav = function (options) {
                 fontSize : currSize + 'px'
             });
         }
-        if (o.overlay) {
-            if ($overlay.is(':visible')) {
-                $overlay.fadeOut();
+    });
+    // If overlay is enabled, show it when over the list, and fade it out when the user leaves the list
+    if (o.overlay) {
+        $('.list-nav', list).on('mouseover', function (evt) {
+            console.log('mouseover!');
+            evt.preventDefault();
+            if ($overlay.is(':hidden')) {
+                $overlay.stop().fadeIn('fast');
             }
-        }
-    });
-    $('.list-nav', list).on('mouseleave', function () {
-        if (o.overlay) {
-            $overlay.fadeOut();
-        }
-    });
+        }).on('mouseleave', function (evt) {
+            evt.preventDefault();
+            if (o.overlay) {
+                if ($overlay.is(':visible')) {
+                    $overlay.stop().fadeOut('slow');
+                }
+            }
+        });
+    }
+    // If arrows are enabled, prepend/append them and bind the click listeners
     if (o.arrows) {
         $('.list-nav', list).css('top', '20px');
         $(list).prepend('<div class="slide-up end"><span class="arrow up"></span></div>');
         $(list).append('<div class="slide-down"><span class="arrow down"></span></div>');
         $('.slide-down', list).on('click', function () {
-            $(listContent, list).animate({scrollTop: "+=" + height + "px"}, 500);
+            $(listContent, list).animate({
+                scrollTop: "+=" + height + "px"
+            }, 500);
         });
         $('.slide-up', list).on('click', function () {
-            $(listContent, list).animate({scrollTop: "-=" + height + "px"}, 500);
+            $(listContent, list).animate({
+                scrollTop: "-=" + height + "px"
+            }, 500);
         });
     }
 };
