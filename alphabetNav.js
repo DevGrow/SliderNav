@@ -6,6 +6,7 @@
  *  Released under the MIT, BSD, and GPL Licenses.
  */
 $.fn.alphabetNav = function (options) {
+    // TODO: update the code to support 100% height
     var defaults = {
             arrows: false,
             content: '.list-content',
@@ -57,10 +58,9 @@ $.fn.alphabetNav = function (options) {
             $overlay.html(target);
         }
         if (o.growEffect) {
-            var bigSize = (currSize * 2) + 'px';
-            console.log('bigSize: ' + bigSize);
+            var superSize = (currSize * 3) + 'px';
             $(this).stop().animate({
-                    fontSize : bigSize
+                    fontSize : superSize
             }, 100);
         }
         $(listContent, list).stop().animate({
@@ -80,18 +80,11 @@ $.fn.alphabetNav = function (options) {
     // If overlay is enabled, show it when over the list, and fade it out when the user leaves the list
     if (o.overlay) {
         $('.list-nav', list).on('mouseover', function (evt) {
-            console.log('mouseover!');
             evt.preventDefault();
-            if ($overlay.is(':hidden')) {
-                $overlay.stop().fadeIn('fast');
-            }
+            $overlay.stop().fadeIn('fast');
         }).on('mouseleave', function (evt) {
             evt.preventDefault();
-            if (o.overlay) {
-                if ($overlay.is(':visible')) {
-                    $overlay.stop().fadeOut('slow');
-                }
-            }
+            $overlay.stop().fadeOut('fast');
         });
     }
     // If arrows are enabled, prepend/append them and bind the click listeners
