@@ -42,9 +42,9 @@ $.fn.alphabetNav = function (options) {
     if (o.debug) {
         $(list).append('<div id="debug">Scroll Offset: <span>0</span></div>');
     }
-    $('.list-nav a', list).on('mouseover', function (evt) {
+    $('.list-nav a', list).on('touchmove mouseover', function (evt) {
         evt.preventDefault();
-        var target  = $(this).data('target'),
+        var target  = $(evt.target).data('target'),
             cOffset = $(listContent, list).offset().top,
             tOffset = $(listContent + ' #' + target, list).offset().top,
             height  = $('.list-nav', list).height();
@@ -53,6 +53,7 @@ $.fn.alphabetNav = function (options) {
         }
         var pScroll = (tOffset - cOffset) - height / 8;
         $(listContent, list).find('li').removeClass('selected');
+
         $('#' + target).addClass('selected');
         if (o.overlay) {
             $overlay.html(target);
@@ -69,7 +70,7 @@ $.fn.alphabetNav = function (options) {
         if (o.debug) {
             $('#debug span', list).html(tOffset);
         }
-    }).on('mouseleave', function (evt) {
+    }).on('touchend mouseleave', function (evt) {
         evt.preventDefault();
         if (o.growEffect) {
             $(this).stop().animate({
@@ -79,10 +80,10 @@ $.fn.alphabetNav = function (options) {
     });
     // If overlay is enabled, show it when over the list, and fade it out when the user leaves the list
     if (o.overlay) {
-        $('.list-nav', list).on('mouseover', function (evt) {
+        $('.list-nav', list).on('touchstart mouseover', function (evt) {
             evt.preventDefault();
             $overlay.stop().fadeIn('fast');
-        }).on('mouseleave', function (evt) {
+        }).on('touchend mouseleave', function (evt) {
             evt.preventDefault();
             $overlay.stop().fadeOut('fast');
         });
