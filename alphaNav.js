@@ -34,18 +34,26 @@ $.elementFromPoint = function (x, y) {
 /**
 * A simple jQuery function to get the current element based on the current event
 * @param evt - the event to "parse" the element out of
-* @returns {$|null} current event target as a jQuery object, or null if 
+* @returns {$|null} current event target as a jQuery object, or null if not a supported event
 */
 $.getTarget = function (evt) {
-    var el = null;
-    if (evt.type === 'mousemove') {
-        el = evt.target;
-    }
-    if (evt.type === 'touchmove') {
-        el = $.elementFromPoint(
-            evt.originalEvent.touches[0].pageX,
-            evt.originalEvent.touches[0].pageY
-        );
+    var el;
+    switch (evt.type) {
+        case 'mousemove':
+        case 'touchstart':
+        case 'touchend':
+        case 'click':
+            el = evt.target;
+            break;
+        case 'touchmove':
+            el = $.elementFromPoint(
+                evt.originalEvent.touches[0].pageX,
+                evt.originalEvent.touches[0].pageY
+            );
+            break;
+        default:
+            el = null;
+            break;
     }
     if (el !== null) {
         return $(el);
@@ -94,7 +102,7 @@ $.fn.alphaNav = function (options) {
     if (o.debug) {
         $(list).append('<div id="debug">Scroll Offset: <span id="scroll-offset">0</span>. Current Target: <span id="current-target">NONE</span></div>');
     }
-    $('.list-nav a', list).on('touchmove mousemove', function (evt) {
+    $('.list-nav a', list).on('click touchstart touchmove mousemove', function (evt) {
         evt.preventDefault();
         // return true if the touch event leaves the parent
         if (evt.target.offsetParent.className !== 'list-nav') {

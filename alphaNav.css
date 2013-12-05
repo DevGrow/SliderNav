@@ -82,6 +82,7 @@
 }
 
 .list .list-nav li a {
+    -webkit-tap-highlight-color: transparent;
     padding: 3px 5px;
     line-height: 13px;
     text-align: center;
