@@ -40,10 +40,11 @@ $.fn.alphabetNav = function (options) {
     }
     $(listContent + ', list-nav', list).css('height', height);
     if (o.debug) {
-        $(list).append('<div id="debug">Scroll Offset: <span>0</span></div>');
+        $(list).append('<div id="debug">Scroll Offset: <span id="scroll-offset">0</span>. Current Target: <span id="current-target">NONE</span></div>');
     }
-    $('.list-nav a', list).on('vmouseover', function (evt) {
+    $('.list-nav a', list).on('vmousemove vmouseover', function (evt) {
         evt.preventDefault();
+        console.dir(evt.target.innerHTML);
         var target  = $(evt.target).data('target'),
             cOffset = $(listContent, list).offset().top,
             tOffset = $(listContent + ' #' + target, list).offset().top,
@@ -68,7 +69,8 @@ $.fn.alphabetNav = function (options) {
             scrollTop: '+=' + pScroll + 'px'
         });
         if (o.debug) {
-            $('#debug span', list).html(tOffset);
+            $('#scroll-offset', list).html(tOffset);
+            $('#current-target', list).html(target);
         }
     }).on('vmouseout', function (evt) {
         evt.preventDefault();
@@ -77,11 +79,14 @@ $.fn.alphabetNav = function (options) {
                 fontSize : currSize + 'px'
             });
         }
+        if (o.debug) {
+            $('#current-target', list).html('NONE');
+        }
     });
 
     // If overlay is enabled, show it when over the list, and fade it out when the user leaves the list
     if (o.overlay) {
-        $('.list-nav', list).on('vmouseover', function (evt) {
+        $('.list-nav', list).on('vmousemove vmouseover', function (evt) {
             evt.preventDefault();
             $overlay.stop().fadeIn('fast');
         }).on('vmouseout', function (evt) {
