@@ -42,7 +42,7 @@ $.fn.alphabetNav = function (options) {
     if (o.debug) {
         $(list).append('<div id="debug">Scroll Offset: <span>0</span></div>');
     }
-    $('.list-nav a', list).on('vmousemove', function (evt) {
+    $('.list-nav a', list).on('vmouseover', function (evt) {
         evt.preventDefault();
         var target  = $(evt.target).data('target'),
             cOffset = $(listContent, list).offset().top,
@@ -81,7 +81,7 @@ $.fn.alphabetNav = function (options) {
 
     // If overlay is enabled, show it when over the list, and fade it out when the user leaves the list
     if (o.overlay) {
-        $('.list-nav', list).on('vmousemove', function (evt) {
+        $('.list-nav', list).on('vmouseover', function (evt) {
             evt.preventDefault();
             $overlay.stop().fadeIn('fast');
         }).on('vmouseout', function (evt) {
@@ -94,12 +94,12 @@ $.fn.alphabetNav = function (options) {
         $('.list-nav', list).css('top', '20px');
         $(list).prepend('<div class="slide-up end"><span class="arrow up"></span></div>');
         $(list).append('<div class="slide-down"><span class="arrow down"></span></div>');
-        $('.slide-down', list).on('click', function () {
+        $('.slide-down', list).on('vclick', function () {
             $(listContent, list).animate({
                 scrollTop: "+=" + height + "px"
             }, 500);
         });
-        $('.slide-up', list).on('click', function () {
+        $('.slide-up', list).on('vclick', function () {
             $(listContent, list).animate({
                 scrollTop: "-=" + height + "px"
             }, 500);
