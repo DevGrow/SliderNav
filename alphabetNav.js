@@ -43,7 +43,7 @@ $.fn.alphabetNav = function (options) {
             arrows: false,
             content: '.list-content',
             debug: false,
-            growEffect: false,
+            //growEffect: false,
             height: null,
             letters: [
                 "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
@@ -74,23 +74,23 @@ $.fn.alphabetNav = function (options) {
     if (o.debug) {
         $(list).append('<div id="debug">Scroll Offset: <span id="scroll-offset">0</span>. Current Target: <span id="current-target">NONE</span></div>');
     }
-    $('.list-nav', list).on('touchmove mousemove', function (evt) {
+    $('.list-nav a', list).on('touchmove mousemove', function (evt) {
         evt.preventDefault();
-        if (evt.target.nodeName !== 'A') {
-            return;
+        if (evt.target.nodeName !== 'A' || (evt.target.offsetParent.className !== 'list-nav')) {
+            return false;
         }
-        var $el = null;
+        var el = null;
         if (evt.type === 'mousemove') {
-            $el = $(evt.target);
+            el = evt.target;
         }
         if (evt.type === 'touchmove') {
-            $el = $.elementFromPoint(
-                event.originalEvent.touches[0].pageX,
-                event.originalEvent.touches[0].pageY
+            el = $.elementFromPoint(
+                evt.originalEvent.touches[0].pageX,
+                evt.originalEvent.touches[0].pageY
             );
         }
-        console.dir($el);
-        var target  = $el.data('target'),
+        console.dir(el);
+        var target  = el.getAttribute('data-target'),
             cOffset = $(listContent, list).offset().top,
             tOffset = $(listContent + ' #' + target, list).offset().top,
             height  = $('.list-nav', list).height();
@@ -104,12 +104,14 @@ $.fn.alphabetNav = function (options) {
         if (o.overlay) {
             $overlay.html(target);
         }
+        /*
         if (o.growEffect) {
             var superSize = (currSize * 3) + 'px';
-            $('a.' + target, this).stop().animate({
+            $(this).stop().animate({
                     fontSize : superSize
             }, 100);
         }
+        */
         $(listContent, list).stop().animate({
             scrollTop: '+=' + pScroll + 'px'
         });
@@ -119,11 +121,13 @@ $.fn.alphabetNav = function (options) {
         }
     }).on('touchend touchleave mouseout', function (evt) {
         evt.preventDefault();
+        /*
         if (o.growEffect) {
-            $('a', this).stop().animate({
+            $(this).stop().animate({
                 fontSize : currSize + 'px'
             });
         }
+        */
         if (o.debug) {
             $('#current-target', list).html('NONE');
         }
