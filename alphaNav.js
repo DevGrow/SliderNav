@@ -1,43 +1,42 @@
-  var check = false,
-      isRelative = true;
+var check = false,
+    isRelative = true;
 
-  /**
-   * A wrapper for document.elementFromPoint
-   * (some browsers use relative positioning, others use absolute)
-   * @param x - the relative x coordinate
-   * @param y - the relative y coordinate
-   * @returns {DOMElement} the element at the given coordinates
-   */
-  $.elementFromPoint = function (x,y) {
-    if(!document.elementFromPoint) {
+/**
+* A wrapper for document.elementFromPoint
+* (some browsers use relative positioning, others use absolute)
+* @param x - the relative x coordinate
+* @param y - the relative y coordinate
+* @returns {DOMElement} the element at the given coordinates
+*/
+$.elementFromPoint = function (x, y) {
+    'use strict';
+    var sl;
+    if (!document.elementFromPoint) {
         return null;
     }
 
     if (!check) {
-      var sl;
-      if ((sl = $(document).scrollTop()) > 0) {
-          isRelative = (document.elementFromPoint(0, sl + $(window).height() -1) == null);
-      }
-      else if((sl = $(document).scrollLeft()) >0 ) {
-          isRelative = (document.elementFromPoint(sl + $(window).width() -1, 0) == null);
-      }
-      check = (sl > 0);
+        if ((sl = $(document).scrollTop()) > 0) {
+            isRelative = (document.elementFromPoint(0, sl + $(window).height() - 1) === null);
+        } else if ((sl = $(document).scrollLeft()) > 0) {
+            isRelative = (document.elementFromPoint(sl + $(window).width() - 1, 0) === null);
+        }
+        check = (sl > 0);
     }
 
-    if(!isRelative) {
-      x += $(document).scrollLeft();
-      y += $(document).scrollTop();
+    if (!isRelative) {
+        x += $(document).scrollLeft();
+        y += $(document).scrollTop();
     }
-    console.log(typeof document.elementFromPoint(x,y));
-    return document.elementFromPoint(x,y);
-  }
+    return document.elementFromPoint(x, y);
+}
 
-  /**
-   * A simple jQuery function to get the current element based on the current event
-   * @param evt - the event to "parse" the element out of
-   * @returns {$|null} current event target as a jQuery object, or null if 
-   */
-  $.getTarget = function (evt) {
+/**
+* A simple jQuery function to get the current element based on the current event
+* @param evt - the event to "parse" the element out of
+* @returns {$|null} current event target as a jQuery object, or null if 
+*/
+$.getTarget = function (evt) {
     var el = null;
     if (evt.type === 'mousemove') {
         el = evt.target;
@@ -52,14 +51,14 @@
         return $(el);
     }
     return el;
-  }
+}
 
 /*
- *  AlphabetNav - A jQuery navigation plugin for navigating an alphabetical list (ex: contacts, countries, etc)
+ *  AlphaNav - A jQuery navigation plugin for navigating an alphabetical list (ex: contacts, countries, etc)
  *  Copyright 2013 Tariq Abusheikh, https://www.tariqabusheikh.com
  *  Released under the MIT, BSD, and GPL Licenses.
  */
-$.fn.alphabetNav = function (options) {
+$.fn.alphaNav = function (options) {
     var defaults = {
             arrows: false,
             content: '.list-content',
