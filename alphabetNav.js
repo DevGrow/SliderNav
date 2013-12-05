@@ -31,7 +31,7 @@ $.fn.alphabetNav = function (options) {
     $(listContent, list).find('li:first').addClass('selected');
     $(list).append('<div class="list-nav"><ul></ul></div>');
     for (var i in o.letters) {
-        $('.list-nav ul', list).append("<li><a data-target='" + o.letters[i] + "'>" + o.letters[i] + "</a></li>");
+        $('.list-nav ul', list).append("<li><a class='" + o.letters[i] + "' data-target='" + o.letters[i] + "'>" + o.letters[i] + "</a></li>");
     }
     var height = $('.list-nav', list).height(),
         currSize = parseInt($('.list-nav a').css('font-size'), 10);
@@ -42,9 +42,9 @@ $.fn.alphabetNav = function (options) {
     if (o.debug) {
         $(list).append('<div id="debug">Scroll Offset: <span id="scroll-offset">0</span>. Current Target: <span id="current-target">NONE</span></div>');
     }
-    $('.list-nav a', list).on('vmousemove vmouseover', function (evt) {
+    $('.list-nav a', list).on('touchenter mouseover', function (evt) {
         evt.preventDefault();
-        console.dir(evt.target.innerHTML);
+        //console.dir(evt.target);
         var target  = $(evt.target).data('target'),
             cOffset = $(listContent, list).offset().top,
             tOffset = $(listContent + ' #' + target, list).offset().top,
@@ -72,7 +72,7 @@ $.fn.alphabetNav = function (options) {
             $('#scroll-offset', list).html(tOffset);
             $('#current-target', list).html(target);
         }
-    }).on('vmouseout', function (evt) {
+    }).on('touchleave mouseout', function (evt) {
         evt.preventDefault();
         if (o.growEffect) {
             $(this).stop().animate({
@@ -86,10 +86,10 @@ $.fn.alphabetNav = function (options) {
 
     // If overlay is enabled, show it when over the list, and fade it out when the user leaves the list
     if (o.overlay) {
-        $('.list-nav', list).on('vmousemove vmouseover', function (evt) {
+        $('.list-nav a', list).on('touchenter mouseover', function (evt) {
             evt.preventDefault();
             $overlay.stop().fadeIn('fast');
-        }).on('vmouseout', function (evt) {
+        }).on('touchleave mouseout', function (evt) {
             evt.preventDefault();
             $overlay.stop().fadeOut('fast');
         });
@@ -99,12 +99,12 @@ $.fn.alphabetNav = function (options) {
         $('.list-nav', list).css('top', '20px');
         $(list).prepend('<div class="slide-up end"><span class="arrow up"></span></div>');
         $(list).append('<div class="slide-down"><span class="arrow down"></span></div>');
-        $('.slide-down', list).on('vclick', function () {
+        $('.slide-down', list).on('click', function () {
             $(listContent, list).animate({
                 scrollTop: "+=" + height + "px"
             }, 500);
         });
-        $('.slide-up', list).on('vclick', function () {
+        $('.slide-up', list).on('click', function () {
             $(listContent, list).animate({
                 scrollTop: "-=" + height + "px"
             }, 500);
