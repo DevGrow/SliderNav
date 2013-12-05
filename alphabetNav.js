@@ -1,3 +1,35 @@
+(function ($) {
+  var check = false,
+      isRelative = true;
+
+  $.elementFromPoint = function (x,y) {
+    if(!document.elementFromPoint) {
+        return null;
+    }
+
+    if (!check) {
+      var sl;
+      if ((sl = $(document).scrollTop()) > 0) {
+          isRelative = (document.elementFromPoint(0, sl + $(window).height() -1) == null);
+      }
+      else if((sl = $(document).scrollLeft()) >0 ) {
+          isRelative = (document.elementFromPoint(sl + $(window).width() -1, 0) == null);
+      }
+      check = (sl > 0);
+    }
+
+    if(!isRelative) {
+      x += $(document).scrollLeft();
+      y += $(document).scrollTop();
+    }
+
+    return document.elementFromPoint(x,y);
+  } 
+
+})(jQuery);
+
+
+
 /*
  *  AlphabetNav - A jQuery navigation plugin for navigating and alphabetical list (ex: contacts, countries, etc)
  *  Copyright 2013 Tariq Abusheikh, https://github.com/triq6
@@ -11,13 +43,13 @@ $.fn.alphabetNav = function (options) {
             arrows: false,
             content: '.list-content',
             debug: false,
+            growEffect: false,
             height: null,
             letters: [
                 "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
                 "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
             ],
-            overlay: false,
-            growEffect: true
+            overlay: true
         },
         opts = $.extend(defaults, options),
         o = $.meta ? $.extend({}, opts, $$.data()) : opts,
@@ -42,10 +74,23 @@ $.fn.alphabetNav = function (options) {
     if (o.debug) {
         $(list).append('<div id="debug">Scroll Offset: <span id="scroll-offset">0</span>. Current Target: <span id="current-target">NONE</span></div>');
     }
-    $('.list-nav a', list).on('touchenter mouseover', function (evt) {
+    $('.list-nav', list).on('touchmove mousemove', function (evt) {
         evt.preventDefault();
-        //console.dir(evt.target);
-        var target  = $(evt.target).data('target'),
+        if (evt.target.nodeName !== 'A') {
+            return;
+        }
+        var $el = null;
+        if (evt.type === 'mousemove') {
+            $el = $(evt.target);
+        }
+        if (evt.type === 'touchmove') {
+            $el = $.elementFromPoint(
+                event.originalEvent.touches[0].pageX,
+                event.originalEvent.touches[0].pageY
+            );
+        }
+        console.dir($el);
+        var target  = $el.data('target'),
             cOffset = $(listContent, list).offset().top,
             tOffset = $(listContent + ' #' + target, list).offset().top,
             height  = $('.list-nav', list).height();
@@ -61,7 +106,7 @@ $.fn.alphabetNav = function (options) {
         }
         if (o.growEffect) {
             var superSize = (currSize * 3) + 'px';
-            $(this).stop().animate({
+            $('a.' + target, this).stop().animate({
                     fontSize : superSize
             }, 100);
         }
@@ -72,10 +117,10 @@ $.fn.alphabetNav = function (options) {
             $('#scroll-offset', list).html(tOffset);
             $('#current-target', list).html(target);
         }
-    }).on('touchleave mouseout', function (evt) {
+    }).on('touchend touchleave mouseout', function (evt) {
         evt.preventDefault();
         if (o.growEffect) {
-            $(this).stop().animate({
+            $('a', this).stop().animate({
                 fontSize : currSize + 'px'
             });
         }
@@ -86,10 +131,10 @@ $.fn.alphabetNav = function (options) {
 
     // If overlay is enabled, show it when over the list, and fade it out when the user leaves the list
     if (o.overlay) {
-        $('.list-nav a', list).on('touchenter mouseover', function (evt) {
+        $('.list-nav', list).on('touchmove mousemove', function (evt) {
             evt.preventDefault();
             $overlay.stop().fadeIn('fast');
-        }).on('touchleave mouseout', function (evt) {
+        }).on('touchend touchleave mouseout', function (evt) {
             evt.preventDefault();
             $overlay.stop().fadeOut('fast');
         });
