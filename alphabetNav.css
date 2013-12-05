@@ -1,8 +1,9 @@
 /*
- *  listNav - A Simple Content list with a Navigation Bar
- *  Copyright 2010 Monjurul Dolon, http://mdolon.com/
+ *  AlphaNav - A Simple Content list with an alphabetical navigation Bar
+ *  Copyright 2013 triq6, https://github.com/triq6
+ *  Forked from ListNav plugin: Copyright 2010 Monjurul Dolon, http://mdolon.com/
  *  Released under the MIT, BSD, and GPL Licenses.
- *  More information: http://devgrow.com/listnav
+ *  More information: https://github.com/triq6/
  */
 .list {
     /*
@@ -73,6 +74,7 @@
     top: 0;
     background: #666;
     min-height: 250px;
+    max-width: 25px;
 }
 
 .list .list-nav ul {

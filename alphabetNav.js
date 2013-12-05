@@ -1,7 +1,13 @@
-(function ($) {
   var check = false,
       isRelative = true;
 
+  /**
+   * A wrapper for document.elementFromPoint
+   * (some browsers use relative positioning, others use absolute)
+   * @param x - the relative x coordinate
+   * @param y - the relative y coordinate
+   * @returns {DOMElement} the element at the given coordinates
+   */
   $.elementFromPoint = function (x,y) {
     if(!document.elementFromPoint) {
         return null;
@@ -22,37 +28,38 @@
       x += $(document).scrollLeft();
       y += $(document).scrollTop();
     }
-
+    console.log(typeof document.elementFromPoint(x,y));
     return document.elementFromPoint(x,y);
   }
 
-  $.getTarget = function (event) {
+  /**
+   * A simple jQuery function to get the current element based on the current event
+   * @param evt - the event to "parse" the element out of
+   * @returns {$|null} current event target as a jQuery object, or null if 
+   */
+  $.getTarget = function (evt) {
     var el = null;
-    if (event.type === 'mousemove' || event.type === 'touchstart') {
-        el = event.target;
+    if (evt.type === 'mousemove') {
+        el = evt.target;
     }
-    if (event.type === 'touchmove') {
+    if (evt.type === 'touchmove') {
         el = $.elementFromPoint(
-            event.originalEvent.touches[0].pageX,
-            event.originalEvent.touches[0].pageY
+            evt.originalEvent.touches[0].pageX,
+            evt.originalEvent.touches[0].pageY
         );
     }
-    return $(el);
+    if (el !== null) {
+        return $(el);
+    }
+    return el;
   }
 
-})(jQuery);
-
-
-
 /*
- *  AlphabetNav - A jQuery navigation plugin for navigating and alphabetical list (ex: contacts, countries, etc)
- *  Copyright 2013 Tariq Abusheikh, https://github.com/triq6
- *  Originally based on the SliderNav plugin, developed by Monjurul Dolon, http://mdolon.com/
- *  For more information on SliderNav: http://devgrow.com/SliderNav
+ *  AlphabetNav - A jQuery navigation plugin for navigating an alphabetical list (ex: contacts, countries, etc)
+ *  Copyright 2013 Tariq Abusheikh, https://www.tariqabusheikh.com
  *  Released under the MIT, BSD, and GPL Licenses.
  */
 $.fn.alphabetNav = function (options) {
-    // TODO: update the code to support 100% height
     var defaults = {
             arrows: false,
             content: '.list-content',
@@ -106,14 +113,15 @@ $.fn.alphabetNav = function (options) {
         $(listContent, list).find('li').removeClass('selected');
 
         $('#' + target).addClass('selected');
+        // If overlay enabled, set the content and fade it in
         if (o.overlay) {
-            $overlay.html(target);
+            $overlay.html(target).stop().fadeIn('fast');
         }
         // If growEffect enabled, grow the current touch target
         if (o.growEffect) {
             $('.list-nav a', list).stop().animate({
                 fontSize : regSize + 'px'
-            });
+            }, 100);
             var superSize = (regSize * 3) + 'px';
             $el.stop().animate({
                     fontSize : superSize
@@ -126,28 +134,22 @@ $.fn.alphabetNav = function (options) {
             $('#scroll-offset', list).html(tOffset);
             $('#current-target', list).html(target);
         }
-    }).on('touchend mouseout', function (evt) {
-        evt.preventDefault();
-        console.dir(evt);
-        if (o.growEffect) {
-            var $el = $.getTarget(evt);
-            $('.list-nav a').animate({
-                fontSize : regSize + 'px'
-            });
-        }
-        if (o.debug) {
-            $('#current-target', list).html('NONE');
-        }
     });
 
-    // If overlay is enabled, show it when over the list, and fade it out when the user leaves the list
-    if (o.overlay) {
-        $('.list-nav', list).on('touchmove mousemove', function (evt) {
+    // If overlay is enabled, fade it out when the user leaves the list
+    if (o.overlay || o.growEffect) {
+        $('.list-nav a', list).on('touchend touchleave mouseout', function (evt) {
             evt.preventDefault();
-            $overlay.stop().fadeIn('fast');
-        }).on('touchend mouseout', function (evt) {
-            evt.preventDefault();
-            $overlay.stop().fadeOut('fast');
+            // Hide overlay (if enabled)
+            if (o.overlay) {
+                $overlay.stop().fadeOut('fast');
+            }
+            // Reset font size (if growEffect enabled)
+            if (o.growEffect) {
+                $('.list-nav a').stop().animate({
+                    fontSize : regSize + 'px'
+                }, 100);
+            }
         });
     }
     // If arrows are enabled, prepend/append them and bind the click listeners
