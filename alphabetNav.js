@@ -42,17 +42,9 @@ $.fn.alphabetNav = function (options) {
     if (o.debug) {
         $(list).append('<div id="debug">Scroll Offset: <span>0</span></div>');
     }
-<<<<<<< HEAD
-    //$('.list-nav a', list).on('touchstart touchmove mouseover', function (evt) {
     $('.list-nav a', list).on('vmousemove', function (evt) {
         evt.preventDefault();
-        //console.dir(evt);
-        var target  = $(this).data('target'),
-=======
-    $('.list-nav a', list).on('touchmove mouseover', function (evt) {
-        evt.preventDefault();
         var target  = $(evt.target).data('target'),
->>>>>>> 6f837e13432cb279704c74a504cdf63b7ca9dc87
             cOffset = $(listContent, list).offset().top,
             tOffset = $(listContent + ' #' + target, list).offset().top,
             height  = $('.list-nav', list).height();
@@ -78,7 +70,6 @@ $.fn.alphabetNav = function (options) {
         if (o.debug) {
             $('#debug span', list).html(tOffset);
         }
-<<<<<<< HEAD
     }).on('vmouseout', function (evt) {
         evt.preventDefault();
         if (o.growEffect) {
@@ -86,39 +77,17 @@ $.fn.alphabetNav = function (options) {
                 fontSize : currSize + 'px'
             });
         }
-    });/*.on('touchend mouseleave', function (evt) {
-=======
-    }).on('touchend mouseleave', function (evt) {
->>>>>>> 6f837e13432cb279704c74a504cdf63b7ca9dc87
-        evt.preventDefault();
-        if (o.growEffect) {
-            $(this).stop().animate({
-                fontSize : currSize + 'px'
-            });
-        }
     });
-*/
+
     // If overlay is enabled, show it when over the list, and fade it out when the user leaves the list
     if (o.overlay) {
-<<<<<<< HEAD
-        //$('.list-nav', list).on('touchstart mouseover', function (evt) {
         $('.list-nav', list).on('vmousemove', function (evt) {
             evt.preventDefault();
             $overlay.stop().fadeIn('fast');
         }).on('vmouseout', function (evt) {
             evt.preventDefault();
             $overlay.stop().fadeOut('fast');
-        });/*.on('touchend mouseleave', function (evt) {
-=======
-        $('.list-nav', list).on('touchstart mouseover', function (evt) {
-            evt.preventDefault();
-            $overlay.stop().fadeIn('fast');
-        }).on('touchend mouseleave', function (evt) {
->>>>>>> 6f837e13432cb279704c74a504cdf63b7ca9dc87
-            evt.preventDefault();
-            $overlay.stop().fadeOut('fast');
         });
-*/
     }
     // If arrows are enabled, prepend/append them and bind the click listeners
     if (o.arrows) {
