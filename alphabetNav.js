@@ -42,8 +42,10 @@ $.fn.alphabetNav = function (options) {
     if (o.debug) {
         $(list).append('<div id="debug">Scroll Offset: <span>0</span></div>');
     }
-    $('.list-nav a', list).on('mouseover', function (evt) {
+    //$('.list-nav a', list).on('touchstart touchmove mouseover', function (evt) {
+    $('.list-nav a', list).on('vmousemove', function (evt) {
         evt.preventDefault();
+        //console.dir(evt);
         var target  = $(this).data('target'),
             cOffset = $(listContent, list).offset().top,
             tOffset = $(listContent + ' #' + target, list).offset().top,
@@ -69,7 +71,14 @@ $.fn.alphabetNav = function (options) {
         if (o.debug) {
             $('#debug span', list).html(tOffset);
         }
-    }).on('mouseleave', function (evt) {
+    }).on('vmouseout', function (evt) {
+        evt.preventDefault();
+        if (o.growEffect) {
+            $(this).stop().animate({
+                fontSize : currSize + 'px'
+            });
+        }
+    });/*.on('touchend mouseleave', function (evt) {
         evt.preventDefault();
         if (o.growEffect) {
             $(this).stop().animate({
@@ -77,15 +86,21 @@ $.fn.alphabetNav = function (options) {
             });
         }
     });
+*/
     // If overlay is enabled, show it when over the list, and fade it out when the user leaves the list
     if (o.overlay) {
-        $('.list-nav', list).on('mouseover', function (evt) {
+        //$('.list-nav', list).on('touchstart mouseover', function (evt) {
+        $('.list-nav', list).on('vmousemove', function (evt) {
             evt.preventDefault();
             $overlay.stop().fadeIn('fast');
-        }).on('mouseleave', function (evt) {
+        }).on('vmouseout', function (evt) {
+            evt.preventDefault();
+            $overlay.stop().fadeOut('fast');
+        });/*.on('touchend mouseleave', function (evt) {
             evt.preventDefault();
             $overlay.stop().fadeOut('fast');
         });
+*/
     }
     // If arrows are enabled, prepend/append them and bind the click listeners
     if (o.arrows) {
