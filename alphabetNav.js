@@ -24,7 +24,21 @@
     }
 
     return document.elementFromPoint(x,y);
-  } 
+  }
+
+  $.getTarget = function (event) {
+    var el = null;
+    if (event.type === 'mousemove' || event.type === 'touchstart') {
+        el = event.target;
+    }
+    if (event.type === 'touchmove') {
+        el = $.elementFromPoint(
+            event.originalEvent.touches[0].pageX,
+            event.originalEvent.touches[0].pageY
+        );
+    }
+    return $(el);
+  }
 
 })(jQuery);
 
@@ -43,7 +57,7 @@ $.fn.alphabetNav = function (options) {
             arrows: false,
             content: '.list-content',
             debug: false,
-            //growEffect: false,
+            growEffect: false,
             height: null,
             letters: [
                 "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
@@ -65,8 +79,8 @@ $.fn.alphabetNav = function (options) {
     for (var i in o.letters) {
         $('.list-nav ul', list).append("<li><a class='" + o.letters[i] + "' data-target='" + o.letters[i] + "'>" + o.letters[i] + "</a></li>");
     }
-    var height = $('.list-nav', list).height(),
-        currSize = parseInt($('.list-nav a').css('font-size'), 10);
+    var height  = $('.list-nav', list).height(),
+        regSize = parseInt($('.list-nav a').css('font-size'), 10);
     if (o.height) {
         height = o.height;
     }
@@ -76,21 +90,12 @@ $.fn.alphabetNav = function (options) {
     }
     $('.list-nav a', list).on('touchmove mousemove', function (evt) {
         evt.preventDefault();
-        if (evt.target.nodeName !== 'A' || (evt.target.offsetParent.className !== 'list-nav')) {
+        // return true if the touch event leaves the parent
+        if (evt.target.offsetParent.className !== 'list-nav') {
             return false;
         }
-        var el = null;
-        if (evt.type === 'mousemove') {
-            el = evt.target;
-        }
-        if (evt.type === 'touchmove') {
-            el = $.elementFromPoint(
-                evt.originalEvent.touches[0].pageX,
-                evt.originalEvent.touches[0].pageY
-            );
-        }
-        console.dir(el);
-        var target  = el.getAttribute('data-target'),
+        var $el     = $.getTarget(evt),
+            target  = $el.data('target'),
             cOffset = $(listContent, list).offset().top,
             tOffset = $(listContent + ' #' + target, list).offset().top,
             height  = $('.list-nav', list).height();
@@ -104,14 +109,16 @@ $.fn.alphabetNav = function (options) {
         if (o.overlay) {
             $overlay.html(target);
         }
-        /*
+        // If growEffect enabled, grow the current touch target
         if (o.growEffect) {
-            var superSize = (currSize * 3) + 'px';
-            $(this).stop().animate({
+            $('.list-nav a', list).stop().animate({
+                fontSize : regSize + 'px'
+            });
+            var superSize = (regSize * 3) + 'px';
+            $el.stop().animate({
                     fontSize : superSize
             }, 100);
         }
-        */
         $(listContent, list).stop().animate({
             scrollTop: '+=' + pScroll + 'px'
         });
@@ -119,15 +126,15 @@ $.fn.alphabetNav = function (options) {
             $('#scroll-offset', list).html(tOffset);
             $('#current-target', list).html(target);
         }
-    }).on('touchend touchleave mouseout', function (evt) {
+    }).on('touchend mouseout', function (evt) {
         evt.preventDefault();
-        /*
+        console.dir(evt);
         if (o.growEffect) {
-            $(this).stop().animate({
-                fontSize : currSize + 'px'
+            var $el = $.getTarget(evt);
+            $('.list-nav a').animate({
+                fontSize : regSize + 'px'
             });
         }
-        */
         if (o.debug) {
             $('#current-target', list).html('NONE');
         }
@@ -138,7 +145,7 @@ $.fn.alphabetNav = function (options) {
         $('.list-nav', list).on('touchmove mousemove', function (evt) {
             evt.preventDefault();
             $overlay.stop().fadeIn('fast');
-        }).on('touchend touchleave mouseout', function (evt) {
+        }).on('touchend mouseout', function (evt) {
             evt.preventDefault();
             $overlay.stop().fadeOut('fast');
         });
