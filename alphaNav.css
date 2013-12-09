@@ -100,10 +100,10 @@
     display: block;
     text-transform: uppercase;
     cursor: pointer;
-    -moz-transition: font-size 500ms ease 0;
-    -webkit-transition: font-size 500ms ease 0;
-    -o-transition: font-size 500ms ease 0;
-    transition: font-size 500ms ease 0;
+    -moz-transition: font-size 250ms ease 0;
+    -webkit-transition: font-size 250ms ease 0;
+    -o-transition: font-size 250ms ease 0;
+    transition: font-size 250ms ease 0;
 }
 .list .list-nav li a:focus {
     outline: none;
