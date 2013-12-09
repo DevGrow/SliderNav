@@ -5,11 +5,17 @@
  *  Released under the MIT, BSD, and GPL Licenses.
  *  More information: https://github.com/triq6/
  */
+
+/* Remove the touch highlights that webkit adds */
+* {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    outline: 0;
+}
+
 .list {
-    /*
-    width: 300px;
-    min-height: 250px;
-    */
     display: block;
     position: relative;
     background: #fff;
@@ -74,7 +80,11 @@
     top: 0;
     background: #666;
     min-height: 250px;
-    max-width: 25px;
+    width: 25px;
+    -moz-transition: width 500ms ease 0;
+    -webkit-transition: width 500ms ease 0;
+    -o-transition: width 500ms ease 0;
+    transition: width 500ms ease 0;
 }
 
 .list .list-nav ul {
@@ -82,7 +92,6 @@
 }
 
 .list .list-nav li a {
-    -webkit-tap-highlight-color: transparent;
     padding: 3px 5px;
     line-height: 13px;
     text-align: center;
@@ -91,6 +100,13 @@
     display: block;
     text-transform: uppercase;
     cursor: pointer;
+    -moz-transition: font-size 500ms ease 0;
+    -webkit-transition: font-size 500ms ease 0;
+    -o-transition: font-size 500ms ease 0;
+    transition: font-size 500ms ease 0;
+}
+.list .list-nav li a:focus {
+    outline: none;
 }
 
 .list #debug {

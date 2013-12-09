@@ -4,6 +4,7 @@ var check = false,
 /**
 * A wrapper for document.elementFromPoint
 * (some browsers use relative positioning, others use absolute)
+* Based on this article: http://goo.gl/gYan0r
 * @param x - the relative x coordinate
 * @param y - the relative y coordinate
 * @returns {DOMElement} the element at the given coordinates
@@ -126,13 +127,10 @@ $.fn.alphaNav = function (options) {
         }
         // If growEffect enabled, grow the current touch target
         if (o.growEffect) {
-            $('.list-nav a', list).stop().animate({
-                fontSize : regSize + 'px'
-            }, 100);
+            $('.list-nav', list).css('width', '40px');
+            $('.list-nav a', list).css('font-size', regSize + 'px');
             var superSize = (regSize * 3) + 'px';
-            $el.stop().animate({
-                    fontSize : superSize
-            }, 100);
+            $el.css('font-size', superSize);
         }
         $(listContent, list).stop().animate({
             scrollTop: '+=' + pScroll + 'px'
@@ -143,7 +141,7 @@ $.fn.alphaNav = function (options) {
         }
     });
 
-    // If overlay is enabled, fade it out when the user leaves the list
+    // Bind the end/leave/out actions (if needed)
     if (o.overlay || o.growEffect) {
         $('.list-nav a', list).on('touchend touchleave mouseout', function (evt) {
             evt.preventDefault();
@@ -153,9 +151,8 @@ $.fn.alphaNav = function (options) {
             }
             // Reset font size (if growEffect enabled)
             if (o.growEffect) {
-                $('.list-nav a').stop().animate({
-                    fontSize : regSize + 'px'
-                }, 100);
+                $('.list-nav', list).css('width', '25px');
+                $('.list-nav a', list).css('font-size', regSize + 'px');
             }
         });
     }
