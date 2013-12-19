@@ -7,146 +7,110 @@
  */
 
 /* Remove the touch highlights that webkit adds */
-* {
+.alphanav-component {
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
     outline: 0;
+    background: #ffffff;
+    color: #333333;
 }
 
-.list {
+#alphanav-wrapper {
     display: block;
-    position: relative;
-    background: #fff;
     overflow: hidden;
+    height: 100%;
 }
 
-.list ul {
-    list-style: none;
-}
-
-.list-content {
+.alphanav-list {
+    position: relative;
     float: left;
     width: 100%;
     display: block;
     overflow: auto;
-    min-height: 250px;
-}
-
-.list-content ul {
-    float: left;
-    width: 100%;
+    margin: 0;
     padding-left: 0;
-    display: block;
-    position: relative;
+    list-style: none;
 }
 
-.list-content ul li {
-    float: left;
-    width: 100%;
-}
-
-.list-content ul ul li a {
-    padding: 5px 10px;
-    display: block;
-    border-bottom: 1px solid #f3f3f3;
-    text-transform: capitalize;
-}
-
-.list-content ul ul li a:hover {
-    background: #f3faff;
-    border-color: #d5ebf9;
-}
-
-.list-content .title {
-    padding: 5px 0;
-    text-indent: 10px;
-    background: #bbb;
-    color: #fff;
-    width: 100%;
-    float: left;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
-.list-content .selected .title {
-    background: #666;
-}
-
-.list .list-nav {
-    position: absolute;
+#alphanav-slider {
+    position: fixed;
     right: 0;
     top: 0;
-    background: #666;
     min-height: 250px;
     width: 25px;
-    -moz-transition: width 500ms ease 0;
-    -webkit-transition: width 500ms ease 0;
-    -o-transition: width 500ms ease 0;
-    transition: width 500ms ease 0;
+    -webkit-transition: width 250ms ease 0s;
+    -moz-transition: width 250ms ease 0s;
+    -o-transition: width 250ms ease 0s;
+    transition: width 250ms ease 0s;
+    z-index: 10;
 }
 
-.list .list-nav ul {
+#alphanav-slider ul {
     padding: 5px 0;
+    list-style: none;
 }
 
-.list .list-nav li a {
-    padding: 3px 5px;
-    line-height: 13px;
+#alphanav-slider li {
+    padding: 0 5px;
+    margin: auto;
     text-align: center;
-    color: #fff;
-    font-weight: bold;
-    display: block;
+    text-decoration: none;
     text-transform: uppercase;
+    font-weight: normal;
     cursor: pointer;
-    -moz-transition: font-size 250ms ease 0;
-    -webkit-transition: font-size 250ms ease 0;
-    -o-transition: font-size 250ms ease 0;
-    transition: font-size 250ms ease 0;
+    -webkit-transition: font-size 250ms ease 0s;
+    -moz-transition: font-size 250ms ease 0s;
+    -o-transition: font-size 250ms ease 0s;
+    transition: font-size 250ms ease 0s;
 }
-.list .list-nav li a:focus {
+
+#alphanav-slider li.current {
+    font-size: 48px;
+}
+
+#alphanav-slider li:focus {
     outline: none;
 }
 
-.list #debug {
-    position: absolute;
+#alphanav-debug {
+    position: fixed;
     bottom: 0;
     left: 0;
     padding: 5px;
-    background: #000;
-    color: #fff;
+    z-index: 10;
 }
 
-.list .arrow {
+.alphanav-component .arrow {
+    position: relative;
+    top: 5px;
     font-size: 0;
     line-height: 0%;
     width: 0;
-    border-bottom: 8px solid #fff;
-    border-left: 5px solid #333;
-    border-right: 5px solid #333;
-    position: relative;
-    top: 5px;
+    border-bottom: 8px solid #ffffff;
+    border-left: 5px solid #333333;
+    border-right: 5px solid #333333;
 }
 
-.list .down {
+#alphanav-btn-slide-down {
     border-bottom: none;
-    border-top: 8px solid #fff;
+    border-top: 8px solid #ffffff;
     top: 15px;
 }
 
-.list .slide-up, .list .slide-down {
+#alphanav-btn-slide-up,
+#alphanav-btn-slide-down {
+    position: relative;
+    width: 100%;
     height: 20px;
-    background: #333;
     text-align: center;
     cursor: pointer;
     float: right;
-    width: 100%;
-    position: relative;
 }
 
 /* Currently configured for full-screen scrollers */
-#current-target-overlay {
+#alphanav-target-overlay {
     display: none;
     position: absolute;
     top: 50%;
@@ -155,10 +119,52 @@
     margin-left: -75px; /* same as font-size */
     padding: 50px;
     border-radius: 5px;
-    color: #000000;
     text-shadow: 0 0 1px #ffffff;
     text-align: center;
     font-size: 75px;
-
-    background-color: rgba(50, 50, 50, 0.75);
+    z-index: 10;
+    opacity: 0.75;
+    border: 1px solid #d6d6d6;
 }
+
+/* default styling for .alphanav-list */
+.alphanav-list ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.alphanav-list li {
+    float: left;
+    width: 100%;
+}
+
+.alphanav-list li a {
+    padding: 5px 10px;
+    display: block;
+    border-bottom: 1px solid #d6d6d6;
+    text-transform: capitalize;
+}
+
+.alphanav-list li a:hover {
+    background: #ffffff;
+    border-color: #d6d6d6;
+}
+
+.alphanav-list .title {
+    padding: 5px 0;
+    text-indent: 10px;
+    background: #aaaaaa;
+    color: #333333;
+    width: 100%;
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.alphanav-list .title:hover,
+.alphanav-list .current .title {
+    background: #333333;
+    color: #aaaaaa;
+}
+
+

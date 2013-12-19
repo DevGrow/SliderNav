@@ -8,13 +8,14 @@
     <link rel="stylesheet" href="normalize.css" />
     <link rel="stylesheet" href="alphaNav.css" />
     <script type="text/javascript" src="jquery-2.0.3.min.js"></script>
-    <script type="text/javascript" src="alphaNav.js"></script>
+    <script type="text/javascript" src="alphaNav.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#content').alphaNav({
-                content: '#list-content',
+            $('#list-content').alphaNav({
+                arrows: false,
                 debug: true,
                 growEffect: true,
+                transitionDuration: '250ms',
                 overlay: true
             });
         });
@@ -27,12 +28,11 @@
     </style>
 </head>
 <body>
-<div id="content">
-    <div id="list-content" class="list-content">
-        <ul>
+    <div id="content">
+        <ul id="list-content">
             <li id="A">
                 <a name="A" class="title">A</a>
-                <ul>
+                <ul class='list-section-content'>
                     <li><a href="#">Adam</a></li>
                     <li><a href="#">Alex</a></li>
                     <li><a href="#">Ali</a></li>
@@ -43,7 +43,7 @@
             </li>
             <li id="B">
                 <a name="B" class="title">B</a>
-                <ul>
+                <ul class='list-section-content'>
                     <li><a href="#">Barry</a></li>
                     <li><a href="#">Becky</a></li>
                     <li><a href="#">Biff</a></li>
@@ -54,7 +54,7 @@
             </li>
             <li id="C">
                 <a name="C" class="title">C</a>
-                <ul>
+                <ul class='list-section-content'>
                     <li><a href="#">Calista</a></li>
                     <li><a href="#">Cathy</a></li>
                     <li><a href="#">Chris</a></li>
@@ -65,7 +65,7 @@
             </li>
             <li id="D">
                 <a name="D" class="title">D</a>
-                <ul>
+                <ul class='list-section-content'>
                     <li><a href="#">damien</a></li>
                     <li><a href="#">danny</a></li>
                     <li><a href="#">denver</a></li>
@@ -76,7 +76,7 @@
             </li>
             <li id="E">
                 <a name="E" class="title">E</a>
-                <ul>
+                <ul class='list-section-content'>
                     <li><a href="#">Barry</a></li>
                     <li><a href="#">Becky</a></li>
                     <li><a href="#">Biff</a></li>
@@ -87,7 +87,7 @@
             </li>
             <li id="F">
                 <a name="F" class="title">F</a>
-                <ul>
+                <ul class='list-section-content'>
                     <li><a href="#">Calista</a></li>
                     <li><a href="#">Cathy</a></li>
                     <li><a href="#">Chris</a></li>
@@ -98,7 +98,7 @@
             </li>
             <li id="G">
                 <a name="G" class="title">G</a>
-                <ul>
+                <ul class='list-section-content'>
                     <li><a href="#">damien</a></li>
                     <li><a href="#">danny</a></li>
                     <li><a href="#">denver</a></li>
@@ -109,7 +109,7 @@
             </li>
             <li id="H">
                 <a name="H" class="title">H</a>
-                <ul>
+                <ul class='list-section-content'>
                     <li><a href="#">Barry</a></li>
                     <li><a href="#">Becky</a></li>
                     <li><a href="#">Biff</a></li>
@@ -120,7 +120,7 @@
             </li>
             <li id="I">
                 <a name="I" class="title">I</a>
-                <ul>
+                <ul class='list-section-content'>
                     <li><a href="#">Calista</a></li>
                     <li><a href="#">Cathy</a></li>
                     <li><a href="#">Chris</a></li>
@@ -131,7 +131,7 @@
             </li>
             <li id="J">
                 <a name="J" class="title">J</a>
-                <ul>
+                <ul class='list-section-content'>
                     <li><a href="#">damien</a></li>
                     <li><a href="#">danny</a></li>
                     <li><a href="#">denver</a></li>
@@ -142,7 +142,7 @@
             </li>
             <li id="K">
                 <a name="K" class="title">K</a>
-                <ul>
+                <ul class='list-section-content'>
                     <li><a href="#">Barry</a></li>
                     <li><a href="#">Becky</a></li>
                     <li><a href="#">Biff</a></li>
@@ -153,7 +153,7 @@
             </li>
             <li id="L">
                 <a name="L" class="title">L</a>
-                <ul>
+                <ul class='list-section-content'>
                     <li><a href="#">Calista</a></li>
                     <li><a href="#">Cathy</a></li>
                     <li><a href="#">Chris</a></li>
@@ -164,7 +164,7 @@
             </li>
             <li id="M">
                 <a name="M" class="title">M</a>
-                <ul>
+                <ul class='list-section-content'>
                     <li><a href="#">damien</a></li>
                     <li><a href="#">danny</a></li>
                     <li><a href="#">denver</a></li>
@@ -175,7 +175,7 @@
             </li>
             <li id="N">
                 <a name="N" class="title">N</a>
-                <ul>
+                <ul class='list-section-content'>
                     <li><a href="#">damien</a></li>
                     <li><a href="#">danny</a></li>
                     <li><a href="#">denver</a></li>
@@ -186,7 +186,7 @@
             </li>
             <li id="O">
                 <a name="O" class="title">O</a>
-                <ul>
+                <ul class='list-section-content'>
                     <li><a href="#">damien</a></li>
                     <li><a href="#">danny</a></li>
                     <li><a href="#">denver</a></li>
@@ -197,7 +197,7 @@
             </li>
             <li id="P">
                 <a name="P" class="title">P</a>
-                <ul>
+                <ul class='list-section-content'>
                     <li><a href="#">Barry</a></li>
                     <li><a href="#">Becky</a></li>
                     <li><a href="#">Biff</a></li>
@@ -208,7 +208,7 @@
             </li>
             <li id="Q">
                 <a name="Q" class="title">Q</a>
-                <ul>
+                <ul class='list-section-content'>
                     <li><a href="#">Calista</a></li>
                     <li><a href="#">Cathy</a></li>
                     <li><a href="#">Chris</a></li>
@@ -219,7 +219,7 @@
             </li>
             <li id="R">
                 <a name="R" class="title">R</a>
-                <ul>
+                <ul class='list-section-content'>
                     <li><a href="#">damien</a></li>
                     <li><a href="#">danny</a></li>
                     <li><a href="#">denver</a></li>
@@ -230,7 +230,7 @@
             </li>
             <li id="S">
                 <a name="S" class="title">S</a>
-                <ul>
+                <ul class='list-section-content'>
                     <li><a href="#">Barry</a></li>
                     <li><a href="#">Becky</a></li>
                     <li><a href="#">Biff</a></li>
@@ -241,7 +241,7 @@
             </li>
             <li id="T">
                 <a name="T" class="title">T</a>
-                <ul>
+                <ul class='list-section-content'>
                     <li><a href="#">Calista</a></li>
                     <li><a href="#">Cathy</a></li>
                     <li><a href="#">Chris</a></li>
@@ -252,7 +252,7 @@
             </li>
             <li id="U">
                 <a name="U" class="title">U</a>
-                <ul>
+                <ul class='list-section-content'>
                     <li><a href="#">damien</a></li>
                     <li><a href="#">danny</a></li>
                     <li><a href="#">denver</a></li>
@@ -263,7 +263,7 @@
             </li>
             <li id="V">
                 <a name="V" class="title">V</a>
-                <ul>
+                <ul class='list-section-content'>
                     <li><a href="#">Barry</a></li>
                     <li><a href="#">Becky</a></li>
                     <li><a href="#">Biff</a></li>
@@ -274,7 +274,7 @@
             </li>
             <li id="W">
                 <a name="W" class="title">W</a>
-                <ul>
+                <ul class='list-section-content'>
                     <li><a href="#">Calista</a></li>
                     <li><a href="#">Cathy</a></li>
                     <li><a href="#">Chris</a></li>
@@ -285,7 +285,7 @@
             </li>
             <li id="X">
                 <a name="X" class="title">X</a>
-                <ul>
+                <ul class='list-section-content'>
                     <li><a href="#">damien</a></li>
                     <li><a href="#">danny</a></li>
                     <li><a href="#">denver</a></li>
@@ -296,7 +296,7 @@
             </li>
             <li id="Y">
                 <a name="Y" class="title">Y</a>
-                <ul>
+                <ul class='list-section-content'>
                     <li><a href="#">damien</a></li>
                     <li><a href="#">danny</a></li>
                     <li><a href="#">denver</a></li>
@@ -307,7 +307,7 @@
             </li>
             <li id="Z">
                 <a name="Z" class="title">Z</a>
-                <ul>
+                <ul class='list-section-content'>
                     <li><a href="#">damien</a></li>
                     <li><a href="#">danny</a></li>
                     <li><a href="#">denver</a></li>
@@ -318,6 +318,5 @@
             </li>
         </ul>
     </div>
-</div>
 </body>
 </html>
