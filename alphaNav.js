@@ -107,7 +107,7 @@
         $list.css('height', height);
         // Set #alphanav-slider 'top' & 'height' properties to match the list content
         $slider.css({
-            top : $list.offset().top,
+            top: $list.offset().top,
             height: height
         });
         // Add .current to the first item in the list
@@ -117,7 +117,6 @@
             evt.preventDefault();
             // return true if the touch event leaves the parent
             if (evt.target.offsetParent.id !== 'alphanav-slider') {
-                console.log('outside of my comfort zone');
                 return false;
             }
             var $el = getTarget(evt),
@@ -125,7 +124,7 @@
                 $target = $('#' + t, $list),
                 tOffset;
             // return if $target doesn't exist
-            if ($target === undefined) {
+            if ($el === undefined || $target === undefined) {
                 return;
             }
             // Get the top offset
@@ -215,19 +214,6 @@
 
     /**
      * Default options for alphaNav
-     * Option definitions:
-     *  arrows: true/false - Show/hide up/down buttons
-     * @type {{
-     *     arrows: boolean,
-     *     debug: boolean,
-     *     growEffect: boolean,
-     *     height: boolean,
-     *     letters: string[],
-     *     onScrollComplete: function,
-     *     overlay: boolean,
-     *     scrollDuration: number,
-     *     wrapperAttributes: {}
-     * }}
      */
     $.fn.alphaNav.defaults = {
         arrows: false, // Include the up/down arrows (default: false)
