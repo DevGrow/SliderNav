@@ -64,7 +64,7 @@
 
     /**
      *  AlphaNav - A jQuery navigation plugin for navigating an alphabetical list (ex: contacts, countries, etc)
-     *  Copyright 2013 Tariq Abusheikh, https://www.tariqabusheikh.com
+     *  Copyright 2014 triq6, https://github.com/triq6
      *  Released under the MIT, BSD, and GPL Licenses.
      */
     $.fn.alphaNav = function (options) {
@@ -217,6 +217,7 @@
      */
     $.fn.alphaNav.defaults = {
         arrows: false, // Include the up/down arrows (default: false)
+        autoHeight: true, // Adjust alphabet list height automatically (default: true)
         container: null, // The selector to insert everything into (default: parent of list content)
         debug: false, // Include debug div
         growEffect: false, // Grow the text as you drag your finger/mouse over it
