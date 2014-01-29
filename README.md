@@ -54,7 +54,7 @@ Another option is to globally override the defaults; this would be the preferred
 	    }
 	}
  * `arrows`: (__CURRENTLY BROKEN__) Include the up/down arrows to scroll the window up/down by the current page height
- * `autoHeight`: Adjust alphabet list height automatically. Can lead to messy results (esp. for longer alphabet lists)
+ * `autoHeight`: Adjust alphabet list height automatically. Disable if you'd like to set list height + margins manually
  * `container`: The selector to insert everything into. If blank, a wrapper div will be created with the ID from `wrapperAttributes`
  * `debug`: Include the debug overlay
  * `growEffect`: Grow the text as you drag your finger/mouse over it
@@ -71,7 +71,7 @@ Another option is to globally override the defaults; this would be the preferred
  * If you integrate this plugin into your webapp and would like to be included in this list, let me know and I will add a link to your project.
 
 ## # TODO # 
- 1. Calculate height + margin for slider letters via JS.
+ 1. ~~Calculate height + margin for slider letters via JS.~~
  1. Fix arrows functionality
  1. Sticky letter headers
  1. Switch from name to a data attribute?

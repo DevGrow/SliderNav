@@ -87,7 +87,11 @@
         // Shove all the letters into #alphanav-slider ul
         $ul = $slider.find('ul');
         for (var i in opts.letters) {
-            $ul.append("<li>" + opts.letters[i] + "</li>");
+            $ul.append("<li class='letter'>" + opts.letters[i] + "</li>");
+        }
+        // Auto-set height if needed
+        if (opts.autoHeight) {
+            $.fn.alphaNav.resize();
         }
         // Pull the slider chars into the $letters object
         $letters = $ul.find('li');
@@ -196,6 +200,14 @@
                 opts.onScrollComplete.call(this);
             });
         }
+
+        // Resize on window resizing
+        if (opts.autoHeight) {
+            $(window).on('resize', function () {
+                $.fn.alphaNav.resize();
+            });
+        }
+
         // For chaining
         return this;
     };
@@ -210,6 +222,30 @@
         $container.prepend($list);
         $wrapper.remove();
         return true;
+    }
+
+    /**
+     * Resize the alphabet slider
+     */
+    $.fn.alphaNav.resize  = function () {
+        var $slider       = $('#alphanav-slider'),
+            $letters      = $slider.find('.letter'),
+            wrapperHeight = $slider.parent().outerHeight(),
+            totalLettersHeight = 0,
+            heightDiff,
+            finalMargin;
+        // Loop through letters to get their actual height
+        $letters.each(function (index) {
+            totalLettersHeight += $(this).outerHeight();
+        });
+        // final margin = (leftover space / # of letters)
+        heightDiff  = wrapperHeight - totalLettersHeight;
+        finalMargin = Math.floor(heightDiff / $letters.length);
+        // Set to 0 if negative, then apply
+        if (finalMargin < 0) {
+            finalMargin = 0;
+        }
+        $letters.css('margin', finalMargin + 'px 0');
     }
 
     /**
