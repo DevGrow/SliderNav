@@ -68,6 +68,7 @@
      *  Released under the MIT, BSD, and GPL Licenses.
      */
     $.fn.alphaNav = function (options) {
+        'use strict';
         var opts      = $.extend(true, {}, $.fn.alphaNav.defaults, options),
             $list     = $(this),
             container = $(this).parent(),
@@ -127,7 +128,7 @@
                 t   = $el.html(),
                 $target = $('#' + t, $list),
                 tOffset;
-            // return if $target doesn't exist
+            // return if $el or $target doesn't exist
             if ($el === undefined || $target === undefined) {
                 return;
             }
@@ -183,6 +184,7 @@
             top = parseInt(top + $upBtn.outerHeight()) + 'px';
             $slider.css('top', top);
             $list.css('top', top);
+            // Bind click to "Up" button
             $upBtn.off('click').on('click', function (evt) {
                 evt.preventDefault();
                 $list.animate({
@@ -191,6 +193,7 @@
                 // Call the onScrollComplete callback function (default: empty fn)
                 opts.onScrollComplete.call(this);
             });
+            // Bind click to "Down" button
             $downBtn.off('click').on('click', function (evt) {
                 evt.preventDefault();
                 $list.animate({
@@ -216,6 +219,7 @@
      * Remove alphanav wrapper + components
      */
     $.fn.alphaNav.destroy = function () {
+        'use strict';
         var $wrapper   = $('#alphanav-wrapper'),
             $container = $wrapper.parent(),
             $list      = $('.alphanav-list');
@@ -228,6 +232,7 @@
      * Resize the alphabet slider
      */
     $.fn.alphaNav.resize  = function () {
+        'use strict';
         var $slider       = $('#alphanav-slider'),
             $letters      = $slider.find('.letter'),
             wrapperHeight = $slider.parent().outerHeight(),
