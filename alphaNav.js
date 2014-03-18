@@ -41,18 +41,18 @@
         'use strict';
         var el;
         switch (evt.type) {
-        case 'mousemove':
-        case 'touchstart':
-        case 'touchend':
-        case 'click':
-            el = evt.target;
-            break;
-        case 'touchmove':
-            el = elementFromPoint(evt.originalEvent.touches[0].pageX, evt.originalEvent.touches[0].pageY);
-            break;
-        default:
-            el = null;
-            break;
+            case 'mousemove':
+            case 'touchstart':
+            case 'touchend':
+            case 'click':
+                el = evt.target;
+                break;
+            case 'touchmove':
+                el = elementFromPoint(evt.originalEvent.touches[0].pageX, evt.originalEvent.touches[0].pageY);
+                break;
+            default:
+                el = null;
+                break;
         }
         if (el !== null) {
             return $(el);
@@ -79,6 +79,9 @@
             $slider,
             $ul,
             $letters;
+        if (opts.debug) {
+            console.debug('constructing alphaNav! Options: ', opts);
+        }
         // add the alphanav-list class to the list content
         $list.addClass('alphanav-list');
         // Create wrapper div, prepend to parent container, then shove the list content into it
@@ -90,10 +93,6 @@
         for (var i in opts.letters) {
             $ul.append("<li class='letter'>" + opts.letters[i] + "</li>");
         }
-        // Auto-set height if needed
-        if (opts.autoHeight) {
-            $.fn.alphaNav.resize();
-        }
         // Pull the slider chars into the $letters object
         $letters = $ul.find('li');
         // Append #alphanav-target-overlay to wrapper (if needed)
@@ -102,12 +101,16 @@
         }
         // Append #alphanav-debug (if needed)
         if (opts.debug) {
+            console.debug("Debug mode enabled! Appending #alphanav-debug");
             $debugDiv = $('<div id="alphanav-debug" class="alphanav-component">Scroll Offset: ' +
                 '<span id="debug-scroll-offset">0</span>. Target: <span id="debug-current-target">NONE</span></div>').appendTo($wrapper);
         }
         // Override height if passed in via options, then set $list to that height
         if (opts.height) {
-            height = parseInt(opts.height) + 'px';
+            height = parseInt(opts.height, 10) + 'px';
+            if (opts.debug) {
+                console.debug("Height being set to: " + height);
+            }
         }
         $list.css('height', height);
         // Set #alphanav-slider 'top' & 'height' properties to match the list content
@@ -122,6 +125,9 @@
             evt.preventDefault();
             // return true if the touch event leaves the parent
             if (evt.target.offsetParent.id !== 'alphanav-slider') {
+                if (opts.debug) {
+                    console.debug('click/touch is not inside alphanav-slider div. returning false');
+                }
                 return false;
             }
             var $el = getTarget(evt),
@@ -129,11 +135,11 @@
                 $target = $('#' + t, $list),
                 tOffset;
             // return if $el or $target doesn't exist
-            if ($el === undefined || $target === undefined) {
-                return;
+            if ($el === undefined || $target === undefined || $target.length === 0) {
+                return false;
             }
             // Get the top offset
-            tOffset = $target.offset().top;
+            tOffset = $target.offset().top;// - parseInt($target.outerHeight(), 10);
             // Remove current class from all headers, then add it to current header
             $list.find('li').removeClass('current');
             $target.addClass('current');
@@ -177,10 +183,12 @@
         }
         // If arrows are enabled, prepend/append them and bind the click listeners
         if (opts.arrows) {
+            if (opts.debug) {
+                console.debug('up/down arrows enabled! Adding HTML + binding click events');
+            }
             var top = $slider.offset().top,
                 $upBtn   = $('<div id="alphanav-btn-slide-up" class="alphanav-component"><span class="arrow up"></span></div>').prependTo($wrapper),
                 $downBtn = $('<div id="alphanav-btn-slide-down" class="alphanav-component"><span class="arrow down"></span></div>').appendTo($wrapper);
-            console.log('arrow height: ' + $upBtn.outerHeight());
             top = parseInt(top + $upBtn.outerHeight()) + 'px';
             $slider.css('top', top);
             $list.css('top', top);
@@ -204,13 +212,11 @@
             });
         }
 
-        // Resize on window resizing
+        // Resize now + bind to window resizing
         if (opts.autoHeight) {
-            $(window).on('resize', function () {
-                $.fn.alphaNav.resize();
-            });
+            $.fn.alphaNav.resize();
+            $(window).on('resize', $.fn.alphaNav.resize());
         }
-
         // For chaining
         return this;
     };
@@ -220,13 +226,13 @@
      */
     $.fn.alphaNav.destroy = function () {
         'use strict';
-        var $wrapper   = $('#alphanav-wrapper'),
+        var $wrapper   = $('#alphanav-slider').parent(),
             $container = $wrapper.parent(),
-            $list      = $('.alphanav-list');
+            $list      = $wrapper.find('.alphanav-list');
         $container.prepend($list);
         $wrapper.remove();
         return true;
-    }
+    };
 
     /**
      * Resize the alphabet slider
@@ -236,13 +242,32 @@
         var $slider       = $('#alphanav-slider'),
             $letters      = $slider.find('.letter'),
             wrapperHeight = $slider.parent().outerHeight(),
+            windowHeight  = $(window).height(),
             totalLettersHeight = 0,
             heightDiff,
             finalMargin;
+        // If wrapper height > window height, reset wrapper height to equal window height (no point in a scroller that doesn't fit on one page)
+        if (wrapperHeight > windowHeight) {
+            wrapperHeight = windowHeight;
+        }
         // Loop through letters to get their actual height
-        $letters.each(function (index) {
+        $letters.each(function () {
             totalLettersHeight += $(this).outerHeight();
         });
+        // Let's make sure that wrapperHeight > totalLettersHeight. If it is, make the letters smaller
+        if (wrapperHeight < totalLettersHeight) {
+            // Loop over letters, making them 1px shorter every time, until their height < wrapperHeight
+            do {
+                var currLetterHeight = parseInt($letters.css('height'), 10),
+                    newLetterHeight = currLetterHeight - 1;
+                $letters.css('height', newLetterHeight + 'px');
+                // Reset totalLettersHeight to 0, then recalculate
+                totalLettersHeight = 0;
+                $letters.each(function () {
+                    totalLettersHeight += $(this).outerHeight();
+                });
+            } while (wrapperHeight < totalLettersHeight);
+        }
         // final margin = (leftover space / # of letters)
         heightDiff  = wrapperHeight - totalLettersHeight;
         finalMargin = Math.floor(heightDiff / $letters.length);
@@ -251,7 +276,7 @@
             finalMargin = 0;
         }
         $letters.css('margin', finalMargin + 'px 0');
-    }
+    };
 
     /**
      * Default options for alphaNav
@@ -267,11 +292,11 @@
             "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
             "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
         ],
-        onScrollComplete: function () {}, // The callback funciton that will fire after scrolling is complete
+        onScrollComplete: function () {}, // The callback function that will fire after scrolling is complete
         overlay: true, // Show the current letter in an overlay
         scrollDuration: 500, // Scroll duration in ms
         wrapperAttributes: { // Any additional attributes to add to the wrapper div
             id: 'alphanav-wrapper'
         }
-    }
+    };
 }( jQuery ));
