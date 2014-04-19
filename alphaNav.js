@@ -92,10 +92,33 @@
         $wrapper = $('<div />').attr(opts.wrapperAttributes).prependTo(container).prepend($list);
         // Append #alphanav-slider to wrapper
         $slider = $('<div id="alphanav-slider" class="alphanav-component"><ul></ul></div>').appendTo($wrapper);
+        // Trim the letters list if trimList is enabled
+        if (opts.trimList) {
+            if (opts.debug) {
+                console.groupCollapsed('trimList info');
+            }
+            for (var i in opts.letters) {
+                var headerClass = 'li.' + opts.headerClassPrefix + opts.letters[i],
+                    $header     = $list.find(headerClass);
+                if (opts.debug) {
+                    console.debug('headerClass: "' + headerClass + '", $header: ', $header);
+                }
+                if ($header.length === 0) {
+                    if (opts.trimReplacement === null) {
+                        delete opts.letters[i];
+                    } else {
+                        opts.letters[i] = opts.trimReplacement;
+                    }
+                }
+            }
+            if (opts.debug) {
+                console.groupEnd();
+            }
+        }
         // Shove all the letters into #alphanav-slider ul
         $ul = $slider.find('ul');
-        for (var i in opts.letters) {
-            $ul.append("<li class='letter'>" + opts.letters[i] + "</li>");
+        for (var x in opts.letters) {
+            $ul.append("<li class='letter'>" + opts.letters[x] + "</li>");
         }
         // Pull the slider chars into the $letters object
         $letters = $ul.find('li');
@@ -136,8 +159,12 @@
             }
             var $el = getTarget(evt),
                 t   = $el.html(),
-                $target = $('li.alpha-header-' + t, $list),
+                $target,
                 tOffset;
+            if (opts.trimList && t === opts.trimReplacement) {
+                return;
+            }
+            $target = $('li.' + opts.headerClassPrefix + t, $list);
             // return if $el or $target doesn't exist
             if ($el === undefined || $target === undefined || $target.length === 0) {
                 return false;
@@ -287,18 +314,20 @@
         arrows: false, // Include the up/down arrows (default: false)
         autoHeight: true, // Adjust alphabet list height automatically (default: true)
         container: null, // The selector to insert everything into (default: parent of list content)
-        debug: false, // Include debug div
-        growEffect: false, // Grow the text as you drag your finger/mouse over it
+        debug: false, // Include debug div (default: false)
+        growEffect: false, // Grow the text as you drag your finger/mouse over it (default: false)
+        headerClassPrefix: 'alphanav-header-', // Prefix for letter headers, followed by the letter, i.e. .alphanav-header-A (default: 'alphanav-header-')
         height: false, // The height of the alphanav wrapper + slider (default: height of window)
-        letters: [ // The letters to build the slider with
+        letters: [ // The letters to build the slider with (default: English alphabet)
             "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
             "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
         ],
-        onScrollComplete: function () {}, // The callback function that will fire after scrolling is complete
-        overlay: true, // Show the current letter in an overlay
-        scrollDuration: 500, // Scroll duration in ms
-        trimList: false,
-        wrapperAttributes: { // Any additional attributes to add to the wrapper div
+        onScrollComplete: function () {}, // The callback function that will fire after scrolling is complete (default: empty function)
+        overlay: true, // Show the current letter in an overlay (default: true)
+        scrollDuration: 500, // Scroll duration in ms (default: 500)
+        trimList: false, // Trim the list of letters and replace with {trimReplacement} (default: false)
+        trimReplacement: '&#8226;', // What to replace empty letters with; pass null to skip li element entirely (default: bullet point)
+        wrapperAttributes: { // Any additional attributes to add to the wrapper div (default: { id: 'alphanav-wrapper' })
             id: 'alphanav-wrapper'
         }
     };
