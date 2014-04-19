@@ -136,7 +136,7 @@
             }
             var $el = getTarget(evt),
                 t   = $el.html(),
-                $target = $('#' + t, $list),
+                $target = $('li.alpha-header-' + t, $list),
                 tOffset;
             // return if $el or $target doesn't exist
             if ($el === undefined || $target === undefined || $target.length === 0) {
@@ -297,6 +297,7 @@
         onScrollComplete: function () {}, // The callback function that will fire after scrolling is complete
         overlay: true, // Show the current letter in an overlay
         scrollDuration: 500, // Scroll duration in ms
+        trimList: false,
         wrapperAttributes: { // Any additional attributes to add to the wrapper div
             id: 'alphanav-wrapper'
         }
