@@ -132,6 +132,9 @@
     opacity: 0.75;
     border: 1px solid #d6d6d6;
 }
+#alphanav-target-overlay.visible {
+    display: block;
+}
 
 /* default styling for .alphanav-list */
 .alphanav-list ul {

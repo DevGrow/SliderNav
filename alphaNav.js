@@ -17,10 +17,14 @@
         }
 
         if (!check) {
-            if ((sl = $(document).scrollTop()) > 0) {
+            sl = $(document).scrollTop();
+            if (sl > 0) {
                 isRelative = (document.elementFromPoint(0, sl + $(window).height() - 1) === null);
-            } else if ((sl = $(document).scrollLeft()) > 0) {
-                isRelative = (document.elementFromPoint(sl + $(window).width() - 1, 0) === null);
+            } else {
+                sl = $(document).scrollLeft();
+                if (sl > 0) {
+                    isRelative = (document.elementFromPoint(sl + $(window).width() - 1, 0) === null);
+                }
             }
             check = (sl > 0);
         }
@@ -41,18 +45,18 @@
         'use strict';
         var el;
         switch (evt.type) {
-            case 'mousemove':
-            case 'touchstart':
-            case 'touchend':
-            case 'click':
-                el = evt.target;
-                break;
-            case 'touchmove':
-                el = elementFromPoint(evt.originalEvent.touches[0].pageX, evt.originalEvent.touches[0].pageY);
-                break;
-            default:
-                el = null;
-                break;
+        case 'mousemove':
+        case 'touchstart':
+        case 'touchend':
+        case 'click':
+            el = evt.target;
+            break;
+        case 'touchmove':
+            el = elementFromPoint(evt.originalEvent.touches[0].pageX, evt.originalEvent.touches[0].pageY);
+            break;
+        default:
+            el = null;
+            break;
         }
         if (el !== null) {
             return $(el);
@@ -145,7 +149,7 @@
             $target.addClass('current');
             // If overlay enabled, set the content and fade it in
             if (opts.overlay) {
-                $overlay.html(t).stop().fadeIn('fast');
+                $overlay.html(t).addClass('visible');
             }
             // If growEffect enabled, grow the current touch target
             if (opts.growEffect) {
@@ -172,7 +176,7 @@
                 evt.preventDefault();
                 // Hide overlay (if enabled)
                 if (opts.overlay) {
-                    $overlay.stop().fadeOut('fast');
+                    $overlay.removeClass('visible');
                 }
                 // Reset font size (if growEffect enabled)
                 if (opts.growEffect) {
@@ -263,9 +267,7 @@
                 $letters.css('height', newLetterHeight + 'px');
                 // Reset totalLettersHeight to 0, then recalculate
                 totalLettersHeight = 0;
-                $letters.each(function () {
-                    totalLettersHeight += $(this).outerHeight();
-                });
+                $letters.each(totalLettersHeight += $(this).outerHeight());
             } while (wrapperHeight < totalLettersHeight);
         }
         // final margin = (leftover space / # of letters)
@@ -299,4 +301,4 @@
             id: 'alphanav-wrapper'
         }
     };
-}( jQuery ));
+}( jQuery));
