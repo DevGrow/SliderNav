@@ -35,7 +35,6 @@
 
 #alphanav-slider {
     position: fixed;
-    right: 0;
     top: 0;
     min-height: 250px;
     width: 25px;
@@ -44,6 +43,12 @@
     -o-transition: width 250ms ease 0s;
     transition: width 250ms ease 0s;
     z-index: 10;
+}
+#alphanav-slider.right {
+    right: 0;
+}
+#alphanav-slider.left {
+    left: 0;
 }
 
 #alphanav-slider ul {
@@ -82,33 +87,33 @@
     z-index: 10;
 }
 
-.alphanav-component .arrow {
-    position: relative;
-    top: 5px;
-    font-size: 0;
-    line-height: 0%;
-    width: 0;
-    border-bottom: 8px solid #ffffff;
-    border-left: 5px solid #333333;
-    border-right: 5px solid #333333;
-}
-
-#alphanav-btn-slide-down {
-    border-bottom: none;
-    border-top: 8px solid #ffffff;
-    top: 15px;
-}
-
-#alphanav-btn-slide-up,
-#alphanav-btn-slide-down {
-    position: relative;
+.alphanav-arrow {
+    position: fixed;
     width: 100%;
-    height: 20px;
+    height: 25px;
     text-align: center;
     cursor: pointer;
-    float: right;
+    left: 0;
+    opacity: 0.5;
+    z-index: 5;
+    -webkit-transition: opacity 500ms ease 0s;
+    -moz-transition: opacity 500ms ease 0s;
+    -o-transition: opacity 500ms ease 0s;
+    transition: opacity 500ms ease 0s;
+}
+.alphanav-arrow:hover {
+    opacity: 1;
 }
 
+#alphanav-btn-slide-up {
+    top: 0;
+    background: #FFF url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAABB0lEQVRoge3WMU4CQRiG4VdDpLGA3ugNiJWewFhyBUlsDPEOhMbS0hvIDWzlAnRS0oFUxmhCQzZowfzNrobZsDOzxfckX8UuvH8HiIiIiIhIDfWAmdtt4pbS+sBPbvdJi0roAhnFAzL3Wa1dACuK8bYVcJmsbocz4J3/421L92yttIEpu+NtU/dOLTSBMf7xtrF7N6kDYET5eNuz+45khn9Eld0gdrS584jz2Qa4iZsO18B6j+j81sBVrPhz4LvCeNsX0AkdfwosAsTb5sBJqPgW8BYw3jYBjquOPwJeI8TbXoBGlQc8Roy3PVR5wGeCAz58wg49D3hi+3c4lsz9poiIiIiIhPMLCLIh6swbbmwAAAAASUVORK5CYII=) no-repeat center;
+}
+
+#alphanav-btn-slide-down {
+    bottom: 0;
+    background: #FFF url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAABB0lEQVRoge3WPy5EURTA4c8Ukmn9WQDRWAAdO9CJKDU2wBZEP61Kop2wAx22QCbUKKZiKDCqJ2HE3Hneu685X3K6l5ffvcXJJYQQQgghhFCzQwwwzDQDHFR5gH7G+GL6KWGtxAMcJX5XpeMqfzaFE/luvyv9cpNN4zxD/AXaVccXZnBdY/wNZuuKLyzgvob4ByzWHV9YwVOF8c9YzRVf2MDbP8OHeMdm5vYvewmB42Y/e/UPHeXjOw30jmjhzOTxp2rY9WW1cSU9/lKNu76sefSMj+9hrqHGsZb9/fB7xFJjdYnW8Wo0/gVrDXZNZBsfvu/6rUaLStjFHW6x02xKCCGEEEII4RefyrsdfOGedvAAAAAASUVORK5CYII=) no-repeat center;
+}
 /* Currently configured for full-screen scrollers */
 #alphanav-target-overlay {
     display: none;
@@ -131,9 +136,6 @@
     z-index: 10;
     opacity: 0.75;
     border: 1px solid #d6d6d6;
-}
-#alphanav-target-overlay.visible {
-    display: block;
 }
 
 /* default styling for .alphanav-list */
@@ -161,7 +163,7 @@
 
 .alphanav-list .title {
     padding: 5px 0;
-    text-indent: 10px;
+    text-align: center;
     background: #aaaaaa;
     color: #333333;
     width: 100%;

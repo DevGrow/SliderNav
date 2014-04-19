@@ -38,7 +38,7 @@
 
     /**
      * A simple jQuery function to get the current element based on the passed in event
-     * @param evt - the event to "parse" the element out of
+     * @param evt - the event to pull the element out of
      * @returns {$|null} current event target as a jQuery object, or null if not a supported event
      */
     function getTarget(evt) {
@@ -59,7 +59,7 @@
             break;
         }
         if (el !== null) {
-            return $(el);
+            el = $(el);
         }
         return el;
     }
@@ -92,7 +92,8 @@
         $wrapper = $('<div />').attr(opts.wrapperAttributes).prependTo(container).prepend($list);
         // Append #alphanav-slider to wrapper
         $slider = $('<div id="alphanav-slider" class="alphanav-component"><ul></ul></div>').appendTo($wrapper);
-        // Trim the letters list if trimList is enabled
+        $slider.addClass(opts.listSide);
+        // Trim the letters array if trimList is enabled
         if (opts.trimList) {
             if (opts.debug) {
                 console.groupCollapsed('trimList info');
@@ -176,7 +177,7 @@
             $target.addClass('current');
             // If overlay enabled, set the content and fade it in
             if (opts.overlay) {
-                $overlay.html(t).addClass('visible');
+                $overlay.html(t).stop().fadeIn('fast');
             }
             // If growEffect enabled, grow the current touch target
             if (opts.growEffect) {
@@ -203,7 +204,7 @@
                 evt.preventDefault();
                 // Hide overlay (if enabled)
                 if (opts.overlay) {
-                    $overlay.removeClass('visible');
+                    $overlay.stop().fadeOut('slow');
                 }
                 // Reset font size (if growEffect enabled)
                 if (opts.growEffect) {
@@ -217,17 +218,13 @@
             if (opts.debug) {
                 console.debug('up/down arrows enabled! Adding HTML + binding click events');
             }
-            var top = $slider.offset().top,
-                $upBtn   = $('<div id="alphanav-btn-slide-up" class="alphanav-component"><span class="arrow up"></span></div>').prependTo($wrapper),
-                $downBtn = $('<div id="alphanav-btn-slide-down" class="alphanav-component"><span class="arrow down"></span></div>').appendTo($wrapper);
-            top = parseInt(top + $upBtn.outerHeight()) + 'px';
-            $slider.css('top', top);
-            $list.css('top', top);
+            var $upBtn   = $('<div id="alphanav-btn-slide-up" class="alphanav-component alphanav-arrow"></div>').prependTo($wrapper),
+                $downBtn = $('<div id="alphanav-btn-slide-down" class="alphanav-component alphanav-arrow"></div>').appendTo($wrapper);
             // Bind click to "Up" button
             $upBtn.off('click').on('click', function (evt) {
                 evt.preventDefault();
                 $list.animate({
-                    scrollTop: "+=" + height + "px"
+                    scrollTop: "-=" + height + "px"
                 }, opts.scrollDuration);
                 // Call the onScrollComplete callback function (default: empty fn)
                 opts.onScrollComplete.call(this);
@@ -236,7 +233,7 @@
             $downBtn.off('click').on('click', function (evt) {
                 evt.preventDefault();
                 $list.animate({
-                    scrollTop: "-=" + height + "px"
+                    scrollTop: "+=" + height + "px"
                 }, opts.scrollDuration);
                 // Call the onScrollComplete callback function (default: empty fn)
                 opts.onScrollComplete.call(this);
@@ -311,23 +308,24 @@
      * Default options for alphaNav
      */
     $.fn.alphaNav.defaults = {
-        arrows: false, // Include the up/down arrows (default: false)
-        autoHeight: true, // Adjust alphabet list height automatically (default: true)
-        container: null, // The selector to insert everything into (default: parent of list content)
-        debug: false, // Include debug div (default: false)
-        growEffect: false, // Grow the text as you drag your finger/mouse over it (default: false)
-        headerClassPrefix: 'alphanav-header-', // Prefix for letter headers, followed by the letter, i.e. .alphanav-header-A (default: 'alphanav-header-')
-        height: false, // The height of the alphanav wrapper + slider (default: height of window)
-        letters: [ // The letters to build the slider with (default: English alphabet)
+        arrows: false, // Include the up/down arrows
+        autoHeight: true, // Adjust alphabet list height automatically
+        container: null, // The selector to insert everything into
+        debug: false, // Include debug div
+        growEffect: false, // Grow the text as you drag your finger/mouse over it
+        headerClassPrefix: 'alphanav-header-', // Prefix for letter headers, followed by the letter, i.e. .alphanav-header-A
+        height: false, // The height of the alphanav wrapper + slider
+        letters: [ // The letters to build the slider with
             "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
             "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
         ],
-        onScrollComplete: function () {}, // The callback function that will fire after scrolling is complete (default: empty function)
-        overlay: true, // Show the current letter in an overlay (default: true)
-        scrollDuration: 500, // Scroll duration in ms (default: 500)
-        trimList: false, // Trim the list of letters and replace with {trimReplacement} (default: false)
-        trimReplacement: '&#8226;', // What to replace empty letters with; pass null to skip li element entirely (default: bullet point)
-        wrapperAttributes: { // Any additional attributes to add to the wrapper div (default: { id: 'alphanav-wrapper' })
+        listSide: 'right', // Which side the letter list should stick to
+        onScrollComplete: function () {}, // The callback function that will fire after scrolling is complete
+        overlay: true, // Show the current letter in an overlay
+        scrollDuration: 500, // Scroll duration in ms
+        trimList: false, // Trim the list of letters and replace with {trimReplacement}
+        trimReplacement: '&#8226;', // What to replace empty letters with; pass null to skip li element entirely
+        wrapperAttributes: { // Any additional attributes to add to the wrapper div
             id: 'alphanav-wrapper'
         }
     };

@@ -1,0 +1,119 @@
+<h1>AlphaNav</h1>
+
+<h2>Overview</h2>
+
+<p><strong>AlphaNav</strong> is a simple jQuery plugin that adds a vertical alphabet slider to an alphabetized list. It&rsquo;s functionality is similar to the iOS Contacts app, and is intended to be used with longer lists, like contacts, countries, etc.</p>
+
+<h3>Basic Usage</h3>
+
+<p>Make sure that you are loading jQuery and alphaNav.js (or alphaNav.min.js), at some point before calling alphaNav. You should also include the default CSS, or copy the structural CSS into an existing CSS file. A simple example of this:</p>
+
+<pre><code>&lt;script type="text/javascript" src="jquery-2.0.3.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="alphaNav.min.js"&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" href="alphaNav.css" /&gt;
+</code></pre>
+
+<p>All you have to do is call alphaNav on the jQuery object holding the content to scroll, like so:</p>
+
+<pre><code>// Convert #list-content to a scrolling list using the default settings (see below)
+$("#list-content").alphaNav();
+</code></pre>
+
+<p>Actually, it&rsquo;s not <em>that</em> easy. You&rsquo;re also going to have to add a class to the list headers (or, if you don&rsquo;t have list headers, the first element of every new letter). The default header class prefix is <code>.alphanav-header-</code>, but you can change that if you need to. An example of the header class you have to add to your HTML for the letter A would be <code>.alphanav-header-A</code></p>
+
+<p>If you want to undo everything that alphaNav did, simply call:</p>
+
+<pre><code>$.fn.alphaNav.destroy();
+</code></pre>
+
+<p>If you want to override any of the default settings, you can either pass them into the alphaNav method:</p>
+
+<pre><code>$('#list-content').alphaNav({
+    arrows: false,
+    debug: true,
+    growEffect: true,
+    transitionDuration: 250,
+    overlay: true
+ });
+</code></pre>
+
+<p>Another option is to globally override the defaults; this would be the preferred method if you are using alphaNav in more than one location on your site:</p>
+
+<pre><code>$.fn.alphaNav.defaults.debug = true;
+$.fn.alphaNav.defaults.overlay = false;
+// Any calls to alphaNav *after* these two lines will have debug = true and overlay = false.
+</code></pre>
+
+<h2>Settings &amp; Defaults</h2>
+
+<pre><code>$.fn.alphaNav.defaults = {
+    arrows: false,
+    autoHeight: true,
+    container: null,
+    debug: false,
+    growEffect: false,
+    headerClassPrefix: 'alphanav-header-',
+    height: false,
+    letters: [
+        "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
+        "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
+    ],
+    listSide: 'right',
+    onScrollComplete: function () {},
+    overlay: true,
+    scrollDuration: 500,
+    trimList: false,
+    trimReplacement: '&amp;#8226;',
+    wrapperAttributes: {
+        id: 'alphanav-wrapper'
+    }
+};
+</code></pre>
+
+<ul>
+<li><code>arrows</code>: Include the up/down arrows to scroll the window up/down by the current page height</li>
+<li><code>autoHeight</code>: Adjust alphabet list height automatically. Disable if you&rsquo;d like to set list height + margins manually</li>
+<li><code>container</code>: The selector to insert everything into. If blank, a wrapper div will be created with the ID from <code>wrapperAttributes</code></li>
+<li><code>debug</code>: Include the debug overlay + console debugging</li>
+<li><code>growEffect</code>: Grow the text as you drag your finger/mouse over it</li>
+<li><code>headerClassPrefix</code>: Prefix for letter headers, followed by the letter, i.e. .alphanav-header-A</li>
+<li><code>height</code>: The height of the alphanav wrapper + slider (default: height of window)</li>
+<li><code>letters</code>: The letters to build the slider with</li>
+<li><code>listSide</code>: Which side should the list stick to?</li>
+<li><code>onScrollComplete</code>: A callback funciton that will fire after scrolling is complete</li>
+<li><code>overlay</code>: When scrolling, show the current letter in an overlay</li>
+<li><code>scrollDuration</code>: Scroll duration (in ms)</li>
+<li><code>trimList</code>: Trim the list of scrolling letters by dropping any that don&rsquo;t have matching headers, and replace with <code>trimReplacement</code></li>
+<li><code>trimReplacement</code>:  What to replace empty letters with; pass null to skip li element entirely</li>
+<li><code>wrapperAttributes</code>: Any additional HTML attributes to add to the wrapper div</li>
+</ul>
+
+
+<h4>Real-world Examples</h4>
+
+<ul>
+<li><a href="https://quicktapcalling.com/rates">QuickTapCalling - Rates</a></li>
+<li>If you integrate this plugin into your webapp and would like to be included in this list, let me know and I will add a link to your project.</li>
+</ul>
+
+
+<h2># TODO #</h2>
+
+<ol>
+<li>Sticky letter headers</li>
+<li>Make animation optional (i.e. pass 0 to scrollDuration to skip jQuery animate code)</li>
+<li>Make scrolling animation smoother (calls to .stop() behave weird sometimes)</li>
+<li>Update $.alphaNav.delete(); to use wrapperAttributes.id.</li>
+<li>Any recommendations/suggestions?</li>
+</ol>
+
+
+<h4>Metadata</h4>
+
+<p><strong>Plugin Name:</strong> AlphaNav</p>
+
+<p><strong>Author:</strong> triq6</p>
+
+<p><strong>Dependencies:</strong> jQuery</p>
+
+<p><strong>Forked from:</strong> <a href="https://github.com/DevGrow/SliderNav">SliderNav</a> (Original author: <a href="http://mdolon.com/">Monjurul Dolon</a>)</p>
