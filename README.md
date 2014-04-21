@@ -30,7 +30,7 @@ If you want to override any of the default settings, you can either pass them in
         overlay: true
      });
  
-Another option is to globally override the defaults; this would be the preferred method if you are using alphaNav in more than one location on your site:
+...OR globally override the defaults; this would be the preferred method if you are using alphaNav in more than one location on your site:
 
     $.fn.alphaNav.defaults.debug = true;
     $.fn.alphaNav.defaults.overlay = false;
@@ -70,20 +70,18 @@ Another option is to globally override the defaults; this would be the preferred
  * `listSide`: Which side should the list stick to?
  * `onScrollComplete`: A callback funciton that will fire after scrolling is complete
  * `overlay`: When scrolling, show the current letter in an overlay
- * `scrollDuration`: Scroll duration (in ms)
+ * `scrollDuration`: Scroll duration (in ms); passing 0 will disable scrolling animation
  * `trimList`: Trim the list of scrolling letters by dropping any that don't have matching headers, and replace with `trimReplacement`
  * `trimReplacement`:  What to replace empty letters with; pass null to skip li element entirely
  * `wrapperAttributes`: Any additional HTML attributes to add to the wrapper div
  
 #### Real-world Examples
- * [QuickTapCalling - Rates](https://quicktapcalling.com/rates)
+ * [QuickTapCalling - Rates](https://quicktapcalling.com/rates) (Mobile-only web app)
  * If you integrate this plugin into your webapp and would like to be included in this list, let me know and I will add a link to your project.
 
 ## # TODO # 
  1. Sticky letter headers
- 1. Make animation optional (i.e. pass 0 to scrollDuration to skip jQuery animate code)
  1. Make scrolling animation smoother (calls to .stop() behave weird sometimes)
- 1. Update $.alphaNav.delete(); to use wrapperAttributes.id.
  1. Any recommendations/suggestions?
  
 #### Metadata

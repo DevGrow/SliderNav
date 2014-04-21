@@ -37,7 +37,7 @@ $("#list-content").alphaNav();
  });
 </code></pre>
 
-<p>Another option is to globally override the defaults; this would be the preferred method if you are using alphaNav in more than one location on your site:</p>
+<p>&hellip;OR globally override the defaults; this would be the preferred method if you are using alphaNav in more than one location on your site:</p>
 
 <pre><code>$.fn.alphaNav.defaults.debug = true;
 $.fn.alphaNav.defaults.overlay = false;
@@ -82,7 +82,7 @@ $.fn.alphaNav.defaults.overlay = false;
 <li><code>listSide</code>: Which side should the list stick to?</li>
 <li><code>onScrollComplete</code>: A callback funciton that will fire after scrolling is complete</li>
 <li><code>overlay</code>: When scrolling, show the current letter in an overlay</li>
-<li><code>scrollDuration</code>: Scroll duration (in ms)</li>
+<li><code>scrollDuration</code>: Scroll duration (in ms); passing 0 will disable scrolling animation</li>
 <li><code>trimList</code>: Trim the list of scrolling letters by dropping any that don&rsquo;t have matching headers, and replace with <code>trimReplacement</code></li>
 <li><code>trimReplacement</code>:  What to replace empty letters with; pass null to skip li element entirely</li>
 <li><code>wrapperAttributes</code>: Any additional HTML attributes to add to the wrapper div</li>
@@ -92,7 +92,7 @@ $.fn.alphaNav.defaults.overlay = false;
 <h4>Real-world Examples</h4>
 
 <ul>
-<li><a href="https://quicktapcalling.com/rates">QuickTapCalling - Rates</a></li>
+<li><a href="https://quicktapcalling.com/rates">QuickTapCalling - Rates</a> (Mobile-only web app)</li>
 <li>If you integrate this plugin into your webapp and would like to be included in this list, let me know and I will add a link to your project.</li>
 </ul>
 
@@ -101,9 +101,7 @@ $.fn.alphaNav.defaults.overlay = false;
 
 <ol>
 <li>Sticky letter headers</li>
-<li>Make animation optional (i.e. pass 0 to scrollDuration to skip jQuery animate code)</li>
 <li>Make scrolling animation smoother (calls to .stop() behave weird sometimes)</li>
-<li>Update $.alphaNav.delete(); to use wrapperAttributes.id.</li>
 <li>Any recommendations/suggestions?</li>
 </ol>
 
