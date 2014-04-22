@@ -162,11 +162,12 @@
                 t   = $el.html(),
                 $target,
                 tOffset;
-            if (opts.trimList && t === opts.trimReplacement) {
+            // abort if t is not 1 char long, or if it is a trimmed char
+            if (t.length > 1 || (opts.trimList && t === opts.trimReplacement)) {
                 return;
             }
             $target = $('li.' + opts.headerClassPrefix + t, $list);
-            // return if $el or $target doesn't exist
+            // abort if $el or $target doesn't exist
             if ($el === undefined || $target === undefined || $target.length === 0) {
                 return false;
             }
