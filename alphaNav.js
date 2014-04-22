@@ -158,17 +158,19 @@
                 }
                 return false;
             }
-            var $el = getTarget(evt),
-                t   = $el.html(),
-                $target,
-                tOffset;
-            // abort if t is not 1 char long, or if it is a trimmed char
-            if (t.length > 1 || (opts.trimList && t === opts.trimReplacement)) {
-                return;
+            var $el = getTarget(evt), t, $target, tOffset;
+            // Make sure el is actually set before pulling HTML
+            if ($el === undefined || $el === null) {
+                return false;
+            }
+            t = $el.html();
+            // abort if t is not 1 char, or if it is a trimmed char
+            if (t.length !== 1 || (opts.trimList && t === opts.trimReplacement)) {
+                return false;
             }
             $target = $('li.' + opts.headerClassPrefix + t, $list);
-            // abort if $el or $target doesn't exist
-            if ($el === undefined || $target === undefined || $target.length === 0) {
+            // abort if $target doesn't exist
+            if ($target === undefined || $target.length === 0) {
                 return false;
             }
             // Get the top offset
