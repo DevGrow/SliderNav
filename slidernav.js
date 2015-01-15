@@ -1,11 +1,11 @@
 /*
  *  SliderNav - A Simple Content Slider with a Navigation Bar
- *  Copyright 2010 Monjurul Dolon, http://mdolon.com/
+ *  Copyright 2015 Monji Dolon, http://mdolon.com/
  *  Released under the MIT, BSD, and GPL Licenses.
  *  More information: http://devgrow.com/slidernav
  */
 $.fn.sliderNav = function(options) {
-	var defaults = { items: ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"], debug: false, height: null, arrows: true};
+	var defaults = { items: ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"], debug: false, height: null, arrows: true, event: 'mouseover'};
 	var opts = $.extend(defaults, options); var o = $.meta ? $.extend({}, opts, $$.data()) : opts; var slider = $(this); $(slider).addClass('slider');
 	$('.slider-content li:first', slider).addClass('selected');
 	$(slider).append('<div class="slider-nav"><ul></ul></div>');
@@ -14,7 +14,7 @@ $.fn.sliderNav = function(options) {
 	if(o.height) height = o.height;
 	$('.slider-content, .slider-nav', slider).css('height',height);
 	if(o.debug) $(slider).append('<div id="debug">Scroll Offset: <span>0</span></div>');
-	$('.slider-nav a', slider).mouseover(function(event){
+	$('.slider-nav a', slider).on(opts.event, function(event){
 		var target = $(this).attr('alt');
 		var cOffset = $('.slider-content', slider).offset().top;
 		var tOffset = $('.slider-content '+target, slider).offset().top;
