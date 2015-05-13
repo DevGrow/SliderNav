@@ -1,23 +1,31 @@
-<h1>Overview</h1>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+</head>
+<body>
+<h1 id="alphanav">AlphaNav</h1>
 
-<p><strong>AlphaNav</strong> is a simple jQuery plugin that adds a vertical alphabet slider to an alphabetized list. It&rsquo;s functionality is similar to the iOS Contacts app, and is intended to be used with longer lists, like contacts, countries, etc.</p>
+<h2 id="overview">Overview</h2>
 
-<h3>Basic Usage</h3>
+<p><strong>AlphaNav</strong> is a simple jQuery plugin that adds a vertical alphabet slider to an alphabetized list. It&#8217;s functionality is similar to the iOS Contacts app, and is intended to be used with longer lists, like contacts, countries, etc.</p>
 
-<p>Make sure that you are loading jQuery and alphaNav.js (or alphaNav.min.js), at some point before calling alphaNav. You should also include the default CSS, or copy the structural CSS into an existing CSS file. A simple example of this:</p>
+<h3 id="basicusage">Basic Usage</h3>
 
-<pre><code>&lt;script type="text/javascript" src="jquery-2.0.3.min.js"&gt;&lt;/script&gt;
-&lt;script type="text/javascript" src="alphaNav.min.js"&gt;&lt;/script&gt;
-&lt;link rel="stylesheet" href="alphaNav.css" /&gt;
+<p>Make sure that you are loading jQuery, Velocity, and alphaNav.js (or alphaNav.min.js), at some point before calling alphaNav. You should also include the default CSS, or copy the structural CSS into an existing CSS file. A simple example of this:</p>
+
+<pre><code>&lt;script type=&quot;text/javascript&quot; src=&quot;jquery-2.0.3.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;dist/alphaNav.min.js&quot;&gt;&lt;/script&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;dist/alphaNav.min.css&quot; /&gt;
 </code></pre>
 
 <p>All you have to do is call alphaNav on the jQuery object holding the content to scroll, like so:</p>
 
 <pre><code>// Convert #list-content to a scrolling list using the default settings (see below)
-$("#list-content").alphaNav();
+$(&quot;#list-content&quot;).alphaNav();
 </code></pre>
 
-<p>Actually, it&rsquo;s not <em>that</em> easy. You&rsquo;re also going to have to add a class to the list headers (or, if you don&rsquo;t have list headers, the first element of every new letter). The default header class prefix is <code>.alphanav-header-</code>, but you can change that if you need to. An example of the header class you have to add to your HTML for the letter A would be <code>.alphanav-header-A</code></p>
+<p>Actually, it&#8217;s not <em>that</em> easy. You&#8217;re also going to have to add a class to the list headers (or, if you don&#8217;t have list headers, the first element of every new letter). The default header class prefix is <code>.alphanav-header-</code>, but you can change that if you need to. An example of the header class you have to add to your HTML for the letter A would be <code>.alphanav-header-A</code></p>
 
 <p>If you want to undo everything that alphaNav did, simply call:</p>
 
@@ -35,16 +43,16 @@ $("#list-content").alphaNav();
  });
 </code></pre>
 
-<p>&hellip;OR globally override the defaults; this would be the preferred method if you are using alphaNav in more than one location on your site:</p>
+<p>&#8230;OR globally over-ride the defaults; this would be the preferred method if you are using alphaNav in more than one location on your site:</p>
 
-<pre><code>$.fn.alphaNav.defaults.debug = true;
-$.fn.alphaNav.defaults.overlay = false;
+<pre><code>$.fn.alphaNav.config.debug = true;
+$.fn.alphaNav.config.overlay = false;
 // Any calls to alphaNav *after* these two lines will have debug = true and overlay = false.
 </code></pre>
 
-<h2>Settings &amp; Defaults</h2>
+<h2 id="settingsdefaults">Settings &amp; Defaults</h2>
 
-<pre><code>$.fn.alphaNav.defaults = {
+<pre><code>$.fn.alphaNav.config = {
     arrows: false,
     autoHeight: true,
     container: null,
@@ -53,13 +61,13 @@ $.fn.alphaNav.defaults.overlay = false;
     headerClassPrefix: 'alphanav-header-',
     height: false,
     letters: [
-        "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
-        "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
+        &quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;, &quot;E&quot;, &quot;F&quot;, &quot;G&quot;, &quot;H&quot;, &quot;I&quot;, &quot;J&quot;, &quot;K&quot;, &quot;L&quot;, &quot;M&quot;,
+        &quot;N&quot;, &quot;O&quot;, &quot;P&quot;, &quot;Q&quot;, &quot;R&quot;, &quot;S&quot;, &quot;T&quot;, &quot;U&quot;, &quot;V&quot;, &quot;W&quot;, &quot;X&quot;, &quot;Y&quot;, &quot;Z&quot;
     ],
     listSide: 'right',
     onScrollComplete: function () {},
     overlay: true,
-    scrollDuration: 500,
+    animationDuration: 500,
     trimList: false,
     trimReplacement: '&amp;#8226;',
     wrapperAttributes: {
@@ -70,46 +78,49 @@ $.fn.alphaNav.defaults.overlay = false;
 
 <ul>
 <li><code>arrows</code>: Include the up/down arrows to scroll the window up/down by the current page height</li>
-<li><code>autoHeight</code>: Adjust alphabet list height automatically. Disable if you&rsquo;d like to set list height + margins manually</li>
+<li><code>autoHeight</code>: Adjust alphabet list height automatically. Disable if you&#8217;d like to set list height + margins manually</li>
 <li><code>container</code>: The selector to insert everything into. If blank, a wrapper div will be created with the ID from <code>wrapperAttributes</code></li>
 <li><code>debug</code>: Include the debug overlay + console debugging</li>
 <li><code>growEffect</code>: Grow the text as you drag your finger/mouse over it</li>
 <li><code>headerClassPrefix</code>: Prefix for letter headers, followed by the letter, i.e. .alphanav-header-A</li>
-<li><code>height</code>: The height of the alphanav wrapper + slider (default: height of window)</li>
+<li><code>height</code>: The height of the AlphaNav wrapper + slider (default: height of window)</li>
 <li><code>letters</code>: The letters to build the slider with</li>
 <li><code>listSide</code>: Which side should the list stick to?</li>
-<li><code>onScrollComplete</code>: A callback funciton that will fire after scrolling is complete</li>
+<li><code>onScrollComplete</code>: A callback function that will fire after scrolling is complete</li>
 <li><code>overlay</code>: When scrolling, show the current letter in an overlay</li>
-<li><code>scrollDuration</code>: Scroll duration (in ms); passing 0 will disable scrolling animation</li>
-<li><code>trimList</code>: Trim the list of scrolling letters by dropping any that don&rsquo;t have matching headers, and replace with <code>trimReplacement</code></li>
-<li><code>trimReplacement</code>:  What to replace empty letters with; pass null to skip li element entirely</li>
+<li><code>animationDuration</code>: Duration of all animations (in ms); passing 0 will disable scrolling animation</li>
+<li><code>trimList</code>: Trim the list of scrolling letters by dropping any that don&#8217;t have matching headers, and replace with <code>trimReplacement</code></li>
+<li><code>trimReplacement</code>: What to replace empty letters with; pass null to skip li element entirely</li>
 <li><code>wrapperAttributes</code>: Any additional HTML attributes to add to the wrapper div</li>
 </ul>
 
-
-<h4>Real-world Examples</h4>
+<h4 id="real-worldexamples">Real-world Examples</h4>
 
 <ul>
-<li><a href="https://quicktapcalling.com/rates">QuickTapCalling - Rates</a> (Mobile-only web app)</li>
+<li><a href="https://helloearth.mobi/rates/index">HelloEarth - Rates</a> (Mobile-only web app)</li>
 <li>If you integrate this plugin into your webapp and would like to be included in this list, let me know and I will add a link to your project.</li>
 </ul>
 
-
-<h2># TODO #</h2>
+<h2 id="todo"># TODO</h2>
 
 <ol>
 <li>Sticky letter headers</li>
-<li>Make scrolling animation smoother (calls to .stop() behave weird sometimes)</li>
+<li>Fix overlay animation (no need to fadeOut if still needed)</li>
+<li>Remove jQuery dependency</li>
 <li>Any recommendations/suggestions?</li>
 </ol>
 
-
-<h4>Metadata</h4>
+<h4 id="metadata">Metadata</h4>
 
 <p><strong>Plugin Name:</strong> AlphaNav</p>
 
+<p><strong>Version:</strong> 2.0.0</p>
+
 <p><strong>Author:</strong> triq6</p>
 
-<p><strong>Dependencies:</strong> jQuery</p>
+<p><strong>Dependencies:</strong> jQuery, Velocity</p>
 
 <p><strong>Forked from:</strong> <a href="https://github.com/DevGrow/SliderNav">SliderNav</a> (Original author: <a href="http://mdolon.com/">Monjurul Dolon</a>)</p>
+
+</body>
+</html>

@@ -3,31 +3,32 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="AlphaNav Arabic Demo">
-    <title>AlphaNav - Arabic Demo</title>
-    <link rel="stylesheet" href="normalize.css" />
-    <link rel="stylesheet" href="alphaNav.css" />
-    <script type="text/javascript" src="jquery-2.0.3.min.js"></script>
-    <script type="text/javascript" src="alphaNav.js"></script>
+    <meta name="description" content="AlphaNav Mobile Demo">
+    <title>AlphaNav - Mobile Demo</title>
+    <link rel="stylesheet" href="../dist/normalize.css" />
+    <link rel="stylesheet" href="../dist/alphaNav.min.css" />
+    <script type="text/javascript" src="../dist/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="../dist/velocity.min.js"></script>
+    <!-- Using the un-minified version for debugging purposes only; you should use the minified version in production -->
+    <script type="text/javascript" src="../src/alphaNav.js"></script>
     <script type="text/javascript">
         $(document).on('ready', function () {
             $('#list-content').alphaNav({
-                arrows: true,
-                debug: false,
+                autoHeight: true,
+                arrows: false,
+                debug: true,
                 growEffect: true,
-                letters: [
-                    'ا', 'ب', 'ج', 'د', 'ه', 'و', 'ز', 'ح', 'ط', 'ي', 'ك', 'ل', 'م', 'ن',
-                    'س', 'ع', 'ف', 'ص', 'ق', 'ر', 'ش', 'ت', 'ث', 'خ', 'ذ', 'ض', 'ظ', 'غ'   
-                ],
-                listSide: 'right',
                 overlay: true,
-                scrollDuration: 0,
-                trimList: true
+                scrollDuration: '250ms',
+                trimList: true,
+                onScrollComplete: function (elements) {
+                    console.log("onScrollComplete! ", elements);
+                }
             });
         });
     </script>
     <style>
-        #content {
+        #list-content {
             width: 100%;
             height: 100%;
         }
@@ -36,8 +37,8 @@
 <body>
     <div id="content">
         <ul id="list-content">
-            <li class="alphanav-header-ا">
-                <span class="title">ا</span>
+            <li class="alphanav-header-A">
+                <span class="title">A</span>
                 <ul class='list-section-content'>
                     <li><a href="#">Adam</a></li>
                     <li><a href="#">Alex</a></li>
@@ -47,8 +48,8 @@
                     <li><a href="#">Ashley</a></li>
                 </ul>
             </li>
-            <li class="alphanav-header-ب">
-                <span class="title">ب</span>
+            <li class="alphanav-header-B">
+                <span class="title">B</span>
                 <ul class='list-section-content'>
                     <li><a href="#">Barry</a></li>
                     <li><a href="#">Becky</a></li>
@@ -58,8 +59,8 @@
                     <li><a href="#">Bryan</a></li>
                 </ul>
             </li>
-            <li class="alphanav-header-ج">
-                <span class="title">ج</span>
+            <li class="alphanav-header-C">
+                <span class="title">C</span>
                 <ul class='list-section-content'>
                     <li><a href="#">Calista</a></li>
                     <li><a href="#">Cathy</a></li>
@@ -69,8 +70,8 @@
                     <li><a href="#">Cypher</a></li>
                 </ul>
             </li>
-            <li class="alphanav-header-د">
-                <span class="title">د</span>
+            <li class="alphanav-header-D">
+                <span class="title">D</span>
                 <ul class='list-section-content'>
                     <li><a href="#">damien</a></li>
                     <li><a href="#">danny</a></li>
@@ -80,8 +81,8 @@
                     <li><a href="#">dustin</a></li>
                 </ul>
             </li>
-            <li class="alphanav-header-ه">
-                <span class="title">ه</span>
+            <li class="alphanav-header-E">
+                <span class="title">E</span>
                 <ul class='list-section-content'>
                     <li><a href="#">Barry</a></li>
                     <li><a href="#">Becky</a></li>
@@ -91,8 +92,8 @@
                     <li><a href="#">Bryan</a></li>
                 </ul>
             </li>
-            <li class="alphanav-header-و">
-                <span class="title">و</span>
+            <li class="alphanav-header-F">
+                <span class="title">F</span>
                 <ul class='list-section-content'>
                     <li><a href="#">Calista</a></li>
                     <li><a href="#">Cathy</a></li>
@@ -102,8 +103,8 @@
                     <li><a href="#">Cypher</a></li>
                 </ul>
             </li>
-            <li class="alphanav-header-ز">
-                <span class="title">ز</span>
+            <li class="alphanav-header-G">
+                <span class="title">G</span>
                 <ul class='list-section-content'>
                     <li><a href="#">damien</a></li>
                     <li><a href="#">danny</a></li>
@@ -113,8 +114,8 @@
                     <li><a href="#">dustin</a></li>
                 </ul>
             </li>
-            <li class="alphanav-header-ح">
-                <span class="title">ح</span>
+            <li class="alphanav-header-H">
+                <span class="title">H</span>
                 <ul class='list-section-content'>
                     <li><a href="#">Barry</a></li>
                     <li><a href="#">Becky</a></li>
@@ -124,8 +125,8 @@
                     <li><a href="#">Bryan</a></li>
                 </ul>
             </li>
-            <li class="alphanav-header-ط">
-                <span class="title">ط</span>
+            <li class="alphanav-header-I">
+                <span class="title">I</span>
                 <ul class='list-section-content'>
                     <li><a href="#">Calista</a></li>
                     <li><a href="#">Cathy</a></li>
@@ -135,8 +136,8 @@
                     <li><a href="#">Cypher</a></li>
                 </ul>
             </li>
-            <li class="alphanav-header-ي">
-                <span class="title">ي</span>
+            <li class="alphanav-header-J">
+                <span class="title">J</span>
                 <ul class='list-section-content'>
                     <li><a href="#">damien</a></li>
                     <li><a href="#">danny</a></li>
@@ -146,8 +147,8 @@
                     <li><a href="#">dustin</a></li>
                 </ul>
             </li>
-            <li class="alphanav-header-ك">
-                <span class="title">ك</span>
+            <li class="alphanav-header-K">
+                <span class="title">K</span>
                 <ul class='list-section-content'>
                     <li><a href="#">Barry</a></li>
                     <li><a href="#">Becky</a></li>
@@ -157,8 +158,8 @@
                     <li><a href="#">Bryan</a></li>
                 </ul>
             </li>
-            <li class="alphanav-header-ل">
-                <span class="title">ل</span>
+            <li class="alphanav-header-L">
+                <span class="title">L</span>
                 <ul class='list-section-content'>
                     <li><a href="#">Calista</a></li>
                     <li><a href="#">Cathy</a></li>
@@ -168,8 +169,8 @@
                     <li><a href="#">Cypher</a></li>
                 </ul>
             </li>
-            <li class="alphanav-header-م">
-                <span class="title">م</span>
+            <li class="alphanav-header-M">
+                <span class="title">M</span>
                 <ul class='list-section-content'>
                     <li><a href="#">damien</a></li>
                     <li><a href="#">danny</a></li>
@@ -179,8 +180,8 @@
                     <li><a href="#">dustin</a></li>
                 </ul>
             </li>
-            <li class="alphanav-header-ن">
-                <span class="title">ن</span>
+            <li class="alphanav-header-N">
+                <span class="title">N</span>
                 <ul class='list-section-content'>
                     <li><a href="#">damien</a></li>
                     <li><a href="#">danny</a></li>
@@ -190,8 +191,8 @@
                     <li><a href="#">dustin</a></li>
                 </ul>
             </li>
-            <li class="alphanav-header-س">
-                <span class="title">س</span>
+            <li class="alphanav-header-O">
+                <span class="title">O</span>
                 <ul class='list-section-content'>
                     <li><a href="#">damien</a></li>
                     <li><a href="#">danny</a></li>
@@ -201,8 +202,8 @@
                     <li><a href="#">dustin</a></li>
                 </ul>
             </li>
-            <li class="alphanav-header-ع">
-                <span class="title">ع</span>
+            <li class="alphanav-header-P">
+                <span class="title">P</span>
                 <ul class='list-section-content'>
                     <li><a href="#">Barry</a></li>
                     <li><a href="#">Becky</a></li>
@@ -212,8 +213,8 @@
                     <li><a href="#">Bryan</a></li>
                 </ul>
             </li>
-            <li class="alphanav-header-ف">
-                <span class="title">ف</span>
+            <li class="alphanav-header-Q">
+                <span class="title">Q</span>
                 <ul class='list-section-content'>
                     <li><a href="#">Calista</a></li>
                     <li><a href="#">Cathy</a></li>
@@ -223,8 +224,8 @@
                     <li><a href="#">Cypher</a></li>
                 </ul>
             </li>
-            <li class="alphanav-header-ص">
-                <span class="title">ص</span>
+            <li class="alphanav-header-R">
+                <span class="title">R</span>
                 <ul class='list-section-content'>
                     <li><a href="#">damien</a></li>
                     <li><a href="#">danny</a></li>
@@ -234,8 +235,8 @@
                     <li><a href="#">dustin</a></li>
                 </ul>
             </li>
-            <li class="alphanav-header-ق">
-                <span class="title">ق</span>
+            <li class="alphanav-header-S">
+                <span class="title">S</span>
                 <ul class='list-section-content'>
                     <li><a href="#">Barry</a></li>
                     <li><a href="#">Becky</a></li>
@@ -245,8 +246,8 @@
                     <li><a href="#">Bryan</a></li>
                 </ul>
             </li>
-            <li class="alphanav-header-ر">
-                <span class="title">ر</span>
+            <li class="alphanav-header-T">
+                <span class="title">T</span>
                 <ul class='list-section-content'>
                     <li><a href="#">Calista</a></li>
                     <li><a href="#">Cathy</a></li>
@@ -256,8 +257,8 @@
                     <li><a href="#">Cypher</a></li>
                 </ul>
             </li>
-            <li class="alphanav-header-ش">
-                <span class="title">ش</span>
+            <li class="alphanav-header-U">
+                <span class="title">U</span>
                 <ul class='list-section-content'>
                     <li><a href="#">damien</a></li>
                     <li><a href="#">danny</a></li>
@@ -267,8 +268,8 @@
                     <li><a href="#">dustin</a></li>
                 </ul>
             </li>
-            <li class="alphanav-header-ت">
-                <span class="title">ت</span>
+            <li class="alphanav-header-V">
+                <span class="title">V</span>
                 <ul class='list-section-content'>
                     <li><a href="#">Barry</a></li>
                     <li><a href="#">Becky</a></li>
@@ -278,8 +279,8 @@
                     <li><a href="#">Bryan</a></li>
                 </ul>
             </li>
-            <li class="alphanav-header-ث">
-                <span class="title">ث</span>
+            <li class="alphanav-header-W">
+                <span class="title">W</span>
                 <ul class='list-section-content'>
                     <li><a href="#">Calista</a></li>
                     <li><a href="#">Cathy</a></li>
@@ -289,8 +290,9 @@
                     <li><a href="#">Cypher</a></li>
                 </ul>
             </li>
-            <li class="alphanav-header-خ">
-                <span class="title">خ</span>
+            <!--
+            <li class="alphanav-header-X">
+                <span class="title">X</span>
                 <ul class='list-section-content'>
                     <li><a href="#">damien</a></li>
                     <li><a href="#">danny</a></li>
@@ -300,8 +302,9 @@
                     <li><a href="#">dustin</a></li>
                 </ul>
             </li>
-            <li class="alphanav-header-ذ">
-                <span class="title">ذ</span>
+            -->
+            <li class="alphanav-header-Y">
+                <span class="title">Y</span>
                 <ul class='list-section-content'>
                     <li><a href="#">damien</a></li>
                     <li><a href="#">danny</a></li>
@@ -311,30 +314,8 @@
                     <li><a href="#">dustin</a></li>
                 </ul>
             </li>
-            <li class="alphanav-header-ض">
-                <span class="title">ض</span>
-                <ul class='list-section-content'>
-                    <li><a href="#">damien</a></li>
-                    <li><a href="#">danny</a></li>
-                    <li><a href="#">denver</a></li>
-                    <li><a href="#">devon</a></li>
-                    <li><a href="#">doug</a></li>
-                    <li><a href="#">dustin</a></li>
-                </ul>
-            </li>
-            <li class="alphanav-header-ظ">
-                <span class="title">ظ</span>
-                <ul class='list-section-content'>
-                    <li><a href="#">damien</a></li>
-                    <li><a href="#">danny</a></li>
-                    <li><a href="#">denver</a></li>
-                    <li><a href="#">devon</a></li>
-                    <li><a href="#">doug</a></li>
-                    <li><a href="#">dustin</a></li>
-                </ul>
-            </li>
-            <li class="alphanav-header-غ">
-                <span class="title">غ</span>
+            <li class="alphanav-header-Z">
+                <span class="title">Z</span>
                 <ul class='list-section-content'>
                     <li><a href="#">damien</a></li>
                     <li><a href="#">danny</a></li>

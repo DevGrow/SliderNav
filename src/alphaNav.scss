@@ -1,0 +1,178 @@
+/*
+ *  AlphaNav - A Simple Content list with an alphabetical navigation Bar
+ *  Created by triq6, https://github.com/triq6
+ *  Originally forked from ListNav plugin: Copyright 2010 Monjurul Dolon, http://mdolon.com/
+ *  Released under the MIT, BSD, and GPL Licenses.
+ */
+
+dl, menu, ol, ul {
+    margin: 0;
+    padding: 0;
+}
+
+/* Remove the touch highlights that webkit adds */
+.alphanav-component {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    outline: 0;
+    background: #ffffff;
+    color: #333333;
+}
+
+#alphanav-wrapper {
+    display: block;
+    overflow: hidden;
+    height: 100%;
+}
+
+.alphanav-list {
+    width: 100%;
+    display: block;
+    overflow: hidden;
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+}
+
+#alphanav-slider {
+    position: fixed;
+    top: 0;
+    margin: 0;
+    padding: 5px 0;
+    list-style: none;
+    min-height: 250px;
+    width: 25px;
+    -webkit-transition: width 250ms ease 0s;
+    -moz-transition: width 250ms ease 0s;
+    -o-transition: width 250ms ease 0s;
+    transition: width 250ms ease 0s;
+    z-index: 10;
+
+    &.left {
+        left: 0;
+    }
+    &.right {
+        right: 0;
+    }
+
+    li {
+        padding: 0 5px;
+        text-align: center;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-weight: normal;
+        cursor: pointer;
+        -webkit-transition: font-size 250ms ease 0s;
+        -moz-transition: font-size 250ms ease 0s;
+        -o-transition: font-size 250ms ease 0s;
+        transition: font-size 250ms ease 0s;
+        &.alphanav-current {
+            font-size: 48px !important;
+            height: 48px !important;
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+#alphanav-debug {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 5px;
+    z-index: 10;
+}
+
+.alphanav-arrow {
+    position: fixed;
+    width: 100%;
+    height: 25px;
+    text-align: center;
+    cursor: pointer;
+    left: 0;
+    opacity: 0.5;
+    z-index: 5;
+    -webkit-transition: opacity 500ms ease 0s;
+    -moz-transition: opacity 500ms ease 0s;
+    -o-transition: opacity 500ms ease 0s;
+    transition: opacity 500ms ease 0s;
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
+#alphanav-btn-slide-up {
+    top: 0;
+    background: #FFF url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAABB0lEQVRoge3WMU4CQRiG4VdDpLGA3ugNiJWewFhyBUlsDPEOhMbS0hvIDWzlAnRS0oFUxmhCQzZowfzNrobZsDOzxfckX8UuvH8HiIiIiIhIDfWAmdtt4pbS+sBPbvdJi0roAhnFAzL3Wa1dACuK8bYVcJmsbocz4J3/421L92yttIEpu+NtU/dOLTSBMf7xtrF7N6kDYET5eNuz+45khn9Eld0gdrS584jz2Qa4iZsO18B6j+j81sBVrPhz4LvCeNsX0AkdfwosAsTb5sBJqPgW8BYw3jYBjquOPwJeI8TbXoBGlQc8Roy3PVR5wGeCAz58wg49D3hi+3c4lsz9poiIiIiIhPMLCLIh6swbbmwAAAAASUVORK5CYII=) no-repeat center;
+}
+
+#alphanav-btn-slide-down {
+    bottom: 0;
+    background: #FFF url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAABB0lEQVRoge3WPy5EURTA4c8Ukmn9WQDRWAAdO9CJKDU2wBZEP61Kop2wAx22QCbUKKZiKDCqJ2HE3Hneu685X3K6l5ffvcXJJYQQQgghhFCzQwwwzDQDHFR5gH7G+GL6KWGtxAMcJX5XpeMqfzaFE/luvyv9cpNN4zxD/AXaVccXZnBdY/wNZuuKLyzgvob4ByzWHV9YwVOF8c9YzRVf2MDbP8OHeMdm5vYvewmB42Y/e/UPHeXjOw30jmjhzOTxp2rY9WW1cSU9/lKNu76sefSMj+9hrqHGsZb9/fB7xFJjdYnW8Wo0/gVrDXZNZBsfvu/6rUaLStjFHW6x02xKCCGEEEII4RefyrsdfOGedvAAAAAASUVORK5CYII=) no-repeat center;
+}
+/* Currently configured for full-screen scrollers */
+#alphanav-target-overlay {
+    display: none;
+    position: absolute;
+    margin: auto;
+    height: 100px;
+    width: 100px;
+    border-radius: 5px;
+    text-shadow: 0 0 1px #ffffff;
+    text-align: center;
+    font-size: 75px;
+    z-index: 10;
+    opacity: 0.75;
+    border: 1px solid #d6d6d6;
+}
+
+/* default styling for .alphanav-list */
+
+.alphanav-list {
+    ul {
+        list-style: none;
+        padding-left: 0;
+    }
+    li {
+        width: 100%;
+        a {
+            padding: 5px 10px;
+            display: block;
+            border-bottom: 1px solid #d6d6d6;
+            text-transform: capitalize;
+
+            &:hover {
+                background: #ffffff;
+                border-color: #d6d6d6;
+            }
+        }
+    }
+
+    .title {
+        display: block;
+        padding: 5px 0;
+        text-align: center;
+        background: #aaaaaa;
+        color: #333333;
+        width: 100%;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .title:hover,
+    li.alphanav-current .title {
+        background: #333333;
+        color: #aaaaaa;
+    }
+}
+
+.sticky-header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+}

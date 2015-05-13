@@ -3,14 +3,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="AlphaNav Mobile Demo">
-    <title>AlphaNav - Mobile Demo</title>
-    <link rel="stylesheet" href="normalize.css" />
-    <link rel="stylesheet" href="alphaNav.css" />
-    <script type="text/javascript" src="jquery-2.0.3.min.js"></script>
-    <script type="text/javascript" src="alphaNav.min.js"></script>
+    <meta name="description" content="AlphaNav Windowed Demo">
+    <title>AlphaNav - Windowed Demo</title>
+    <link rel="stylesheet" href="../dist/normalize.css" />
+    <link rel="stylesheet" href="../dist/alphaNav.min.css" />
+    <script type="text/javascript" src="../dist/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="../dist/velocity.min.js"></script>
+    <script type="text/javascript" src="../dist/alphaNav.min.js"></script>
     <script type="text/javascript">
-        $(document).on('ready', function () {
+        function createAlphaNav() {
             $('#list-content').alphaNav({
                 arrows: false,
                 debug: true,
@@ -19,6 +20,24 @@
                 scrollDuration: '250ms',
                 trimList: true
             });
+            return true;
+        }
+        $(document).on('ready', function () {
+            createAlphaNav();
+            $('#toggle-button').on('click', function () {
+                if ($(this).data('action') == 'destroy') {
+                    $('#list-content').alphaNav('destroy');
+                    $(this)
+                        .data('action', 'create')
+                        .text('Create AlphaNav');
+                    return;
+                } else {
+                    createAlphaNav();
+                    $(this)
+                        .data('action', 'destroy')
+                        .text('Destroy AlphaNav');
+                }
+            });
         });
     </script>
     <style>
@@ -26,10 +45,26 @@
             width: 100%;
             height: 100%;
         }
+        #list-content {
+            height: 75%;
+            width: 75%;
+        }
+        #buttons {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+        }
+        #delete-button {
+            width: 100%;
+            margin-bottom: 25px;
+        }
     </style>
 </head>
 <body>
     <div id="content">
+        <div id="header">
+            <h1> Windowed list</h1>
+        </div>
         <ul id="list-content">
             <li class="alphanav-header-A">
                 <span class="title">A</span>
@@ -320,6 +355,9 @@
                 </ul>
             </li>
         </ul>
+    </div>
+    <div id='buttons'>
+        <button type='button' id='toggle-button' data-action="destroy">Destroy AlphaNav</button>
     </div>
 </body>
 </html>

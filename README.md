@@ -3,11 +3,13 @@
 **AlphaNav** is a simple jQuery plugin that adds a vertical alphabet slider to an alphabetized list. It's functionality is similar to the iOS Contacts app, and is intended to be used with longer lists, like contacts, countries, etc.
 
 ### Basic Usage
-Make sure that you are loading jQuery and alphaNav.js (or alphaNav.min.js), at some point before calling alphaNav. You should also include the default CSS, or copy the structural CSS into an existing CSS file. A simple example of this:
-    
+Make sure that you are loading jQuery, Velocity, and alphaNav.js (or alphaNav.min.js), at some point before calling alphaNav. You should also include the default CSS, or copy the structural CSS into an existing CSS file. A simple example of this:
+
     <script type="text/javascript" src="jquery-2.0.3.min.js"></script>
-    <script type="text/javascript" src="alphaNav.min.js"></script>
-    <link rel="stylesheet" href="alphaNav.css" />
+    <script type="text/javascript" src="dist/alphaNav.min.js"></script>
+    <link rel="stylesheet" href="dist/alphaNav.min.css" />
+
+
 
 All you have to do is call alphaNav on the jQuery object holding the content to scroll, like so:
 
@@ -19,7 +21,7 @@ Actually, it's not *that* easy. You're also going to have to add a class to the 
 If you want to undo everything that alphaNav did, simply call:
 
 	$.fn.alphaNav.destroy();
-	
+
 If you want to override any of the default settings, you can either pass them into the alphaNav method:
 
     $('#list-content').alphaNav({
@@ -29,15 +31,15 @@ If you want to override any of the default settings, you can either pass them in
         transitionDuration: 250,
         overlay: true
      });
- 
-...OR globally override the defaults; this would be the preferred method if you are using alphaNav in more than one location on your site:
 
-    $.fn.alphaNav.defaults.debug = true;
-    $.fn.alphaNav.defaults.overlay = false;
+...OR globally over-ride the defaults; this would be the preferred method if you are using alphaNav in more than one location on your site:
+
+    $.fn.alphaNav.config.debug = true;
+    $.fn.alphaNav.config.overlay = false;
 	// Any calls to alphaNav *after* these two lines will have debug = true and overlay = false.
-	
+
 ## Settings & Defaults
-    $.fn.alphaNav.defaults = {
+    $.fn.alphaNav.config = {
         arrows: false,
         autoHeight: true,
         container: null,
@@ -52,7 +54,7 @@ If you want to override any of the default settings, you can either pass them in
         listSide: 'right',
         onScrollComplete: function () {},
         overlay: true,
-        scrollDuration: 500,
+        animationDuration: 500,
         trimList: false,
         trimReplacement: '&#8226;',
         wrapperAttributes: {
@@ -65,30 +67,33 @@ If you want to override any of the default settings, you can either pass them in
  * `debug`: Include the debug overlay + console debugging
  * `growEffect`: Grow the text as you drag your finger/mouse over it
  * `headerClassPrefix`: Prefix for letter headers, followed by the letter, i.e. .alphanav-header-A
- * `height`: The height of the alphanav wrapper + slider (default: height of window)
+ * `height`: The height of the AlphaNav wrapper + slider (default: height of window)
  * `letters`: The letters to build the slider with
  * `listSide`: Which side should the list stick to?
- * `onScrollComplete`: A callback funciton that will fire after scrolling is complete
+ * `onScrollComplete`: A callback function that will fire after scrolling is complete
  * `overlay`: When scrolling, show the current letter in an overlay
- * `scrollDuration`: Scroll duration (in ms); passing 0 will disable scrolling animation
+ * `animationDuration`: Duration of all animations (in ms); passing 0 will disable scrolling animation
  * `trimList`: Trim the list of scrolling letters by dropping any that don't have matching headers, and replace with `trimReplacement`
  * `trimReplacement`:  What to replace empty letters with; pass null to skip li element entirely
  * `wrapperAttributes`: Any additional HTML attributes to add to the wrapper div
- 
+
 #### Real-world Examples
- * [QuickTapCalling - Rates](https://quicktapcalling.com/rates) (Mobile-only web app)
+ * [HelloEarth - Rates](https://helloearth.mobi/rates/index) (Mobile-only web app)
  * If you integrate this plugin into your webapp and would like to be included in this list, let me know and I will add a link to your project.
 
-## # TODO # 
+## # TODO #
  1. Sticky letter headers
- 1. Make scrolling animation smoother (calls to .stop() behave weird sometimes)
+ 1. Fix overlay animation (no need to fadeOut if still needed)
+ 1. Remove jQuery dependency
  1. Any recommendations/suggestions?
- 
+
 #### Metadata
 **Plugin Name:** AlphaNav
 
+**Version:** 2.0.0
+
 **Author:** triq6
 
-**Dependencies:** jQuery
+**Dependencies:** jQuery, Velocity
 
 **Forked from:** [SliderNav](https://github.com/DevGrow/SliderNav) (Original author: [Monjurul Dolon](http://mdolon.com/))
