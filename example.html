@@ -4,14 +4,6 @@
 
 <title>Apple-Style Slider</title>
 <link rel="stylesheet" type="text/css" href="slidernav.css" media="screen, projection" />
-<script type="text/javascript" src="jquery-1.4.2.js"></script>
-<script type="text/javascript" src="slidernav.js"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$('#slider').sliderNav();
-		$('#transformers').sliderNav({items:['autobots','decepticons'], debug: true, height: '300', arrows: false});
-	});
-</script>
 <style>
 	/* The following styles are used only for this page - the actual plugin styles are in slidernav.css */
 	* { margin: 0; padding: 0; }
@@ -332,5 +324,13 @@
 <h3>Credit and License</h3>
 <p>This plugin was created by <a href="http://mdolon.com/">Monjurul Dolon</a>, author of <a href="http://devgrow.com/">DevGrow</a>, a blog for web developers and designers.  Inspiration for this effect came from a new technology blog called <a href="http://techi.com/">Techi</a> - be sure to support them as well!</p>
 <p>Realeased under the MIT, BSD, and GPL Licenses - do whatever you'd like with it, though a link back would be sincerely appreciated!</p>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="slidernav.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#slider').sliderNav();
+		$('#transformers').sliderNav({items:['autobots','decepticons'], debug: true, height: '300', arrows: false});
+	});
+</script>
 </body>
 </html>
