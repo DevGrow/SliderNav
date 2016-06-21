@@ -9,7 +9,7 @@ $.fn.sliderNav = function(options) {
 	var opts = $.extend(defaults, options); var o = $.meta ? $.extend({}, opts, $$.data()) : opts; var slider = $(this); $(slider).addClass('slider');
 	$('.slider-content li:first', slider).addClass('selected');
 	$(slider).append('<div class="slider-nav"><ul></ul></div>');
-	for(var i in o.items) $('.slider-nav ul', slider).append("<li><a alt='#"+o.items[i]+"'>"+o.items[i]+"</a></li>");
+	for(var i = 0; i < o.items.length; ++i) $('.slider-nav ul', slider).append("<li><a alt='#"+o.items[i]+"'>"+o.items[i]+"</a></li>");
 	var height = $('.slider-nav', slider).height();
 	if(o.height) height = o.height;
 	$('.slider-content, .slider-nav', slider).css('height',height);
