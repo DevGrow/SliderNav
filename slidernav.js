@@ -16,14 +16,29 @@ $.fn.sliderNav = function(options) {
 	if(o.debug) $(slider).append('<div id="debug">Scroll Offset: <span>0</span></div>');
 	$('.slider-nav a', slider).on(opts.event, function(event){
 		var target = $(this).attr('alt');
-		var cOffset = $('.slider-content', slider).offset().top;
-		var tOffset = $('.slider-content '+target, slider).offset().top;
-		var height = $('.slider-nav', slider).height(); if(o.height) height = o.height;
-		var pScroll = (tOffset - cOffset) - height/8;
-		$('.slider-content li', slider).removeClass('selected');
-		$(target).addClass('selected');
-		$('.slider-content', slider).stop().animate({scrollTop: '+=' + pScroll + 'px'});
-		if(o.debug) $('#debug span', slider).html(tOffset);
+        var cOffset = $('.slider-content', slider).offset().top;
+        if (!$('.slider-content ' + target, slider).offset()) {
+            var index = o.items.indexOf(target.replace("#", ""));
+            var i = index - 1;
+            while (i >= 0){
+                if ($('.slider-content #' + o.items[i], slider).offset()) { target = "#" + o.items[i]; break; }
+                i--;
+            }
+            if (i == -1) {
+                i = index + 1;
+                while (i <= o.items.length - 1) {
+                    if ($('.slider-content #' + o.items[i], slider).offset()) { target = "#" + o.items[i]; break; }
+                    i++;
+                }
+            }
+        }
+        var tOffset = $('.slider-content ' + target, slider).offset().top;
+        var height = $('.slider-nav', slider).height(); if (o.height) height = o.height;
+        var pScroll = (tOffset - cOffset) - height / 8;
+        $('.slider-content li', slider).removeClass('selected');
+        $(target).addClass('selected');
+        $('.slider-content', slider).stop().animate({ scrollTop: '+=' + pScroll + 'px' });
+        if (o.debug) $('#debug span', slider).html(tOffset);
 	});
 	if(o.arrows){
 		$('.slider-nav',slider).css('top','20px');
